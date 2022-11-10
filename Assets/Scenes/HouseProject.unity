@@ -383,6 +383,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   heightSlide: {fileID: 848844418}
   widthSlide: {fileID: 523215982}
+  cam: {fileID: 519420032}
+  camera: {fileID: 519420031}
   tilePrefab: {fileID: 7505609135613684637, guid: c16efdff02c816d4a8ef9ddb59df8cae, type: 3}
 --- !u!4 &127243177
 Transform:

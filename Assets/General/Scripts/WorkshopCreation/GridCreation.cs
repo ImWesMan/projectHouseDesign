@@ -7,7 +7,8 @@ public class GridCreation : MonoBehaviour
    float width, height;
    public Slider heightSlide;
    public Slider widthSlide;
-
+    [SerializeField] Transform cam;
+    [SerializeField] Camera camera;
     [SerializeField] Tile tilePrefab;
    public void GenerateGrid()
    {
@@ -26,5 +27,12 @@ public class GridCreation : MonoBehaviour
              spawnedTile.init(isOffset);
         }
     }
+    float maximum = (float)Mathf.Max(width, height);
+    camera.orthographicSize = maximum / 2.0f + maximum/100;
+    float cameraHeight = 2.0f * camera.orthographicSize;
+    float cameraWidth = cameraHeight * camera.aspect;
+
+    cam.transform.position = new Vector3((float)width/2 + cameraWidth / 6.0f , (float)height / 2 - 0.5f, -10);
+
    }
 }
