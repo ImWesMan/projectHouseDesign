@@ -16,23 +16,25 @@ public class GridCreation : MonoBehaviour
     width = widthSlide.value;
     Debug.Log(height);
     Debug.Log(width);
-    for(int x = 0; x < width; x++)
-    {
-        for(int y = 0; y<height; y++)
-        {
+    for(int x = 0; x < width; x++) { 
+  
+        for(int y = 0; y<height; y++) { 
+        
             var spawnedTile = Instantiate(tilePrefab, new Vector3(x,y), Quaternion.identity);
-            spawnedTile.name = $"Tile {x} {y}";
+            spawnedTile.name = $"Tile ({x},{y})";
 
             var isOffset = (x + y) % 2 == 1;
              spawnedTile.init(isOffset);
         }
     }
-    float maximum = (float)Mathf.Max(width, height);
-    camera.orthographicSize = maximum / 2.0f + maximum/100;
+    
+    float maximum = Mathf.Max(width, height);
+    
+    camera.orthographicSize = maximum/2.0f + maximum/100;
+    
     float cameraHeight = 2.0f * camera.orthographicSize;
     float cameraWidth = cameraHeight * camera.aspect;
-
-    cam.transform.position = new Vector3((float)width/2 + cameraWidth / 6.0f , (float)height / 2 - 0.5f, -10);
+    cam.transform.position = new Vector3(width/2.0f + cameraWidth/6.0f , height/2.0f - 0.5f, -10);
 
    }
 }
