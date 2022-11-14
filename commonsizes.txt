@@ -7,7 +7,7 @@ Lengths x Widths
 7	4
 8
 
-Living Table
+Coffee Table
 Lengths x Widths
 2                 2
 4                 3
@@ -63,6 +63,10 @@ Dryer
 Chair
 
 Sofa Chair
+
+Instand Water Heater
+
+Furnace 
 
 
 
