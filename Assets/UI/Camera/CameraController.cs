@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using UnityEngine.UI;
 public class cameraController : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -13,10 +13,10 @@ public class cameraController : MonoBehaviour
     private bool drag = false;
     public GameObject bottomLeft;
     public GameObject topRight;
-    
     Vector3 bottomLeftPos;
     Vector3 topRightPos;
-     
+    public Slider length;
+    public Slider width;
     // Update is called once per frame
      public void getPos() {
         bottomLeftPos = camera.WorldToScreenPoint(bottomLeft.transform.position);
@@ -55,9 +55,6 @@ public class cameraController : MonoBehaviour
         if(drag)
         {
             Camera.main.transform.position = Origin - Difference;
-            Camera.main.transform.position = new Vector3(
-      Mathf.Clamp(Camera.main.transform.position.x, 0, 78),
-        Mathf.Clamp(Camera.main.transform.position.y, -30, 40), -10);
         }
         
     }
@@ -70,9 +67,6 @@ public class cameraController : MonoBehaviour
             Camera.main.orthographicSize = Mathf.Clamp(Camera.main.orthographicSize - zoomDiff * zoomScale, zoomMin, zoomMax);
             Vector3 mouseWorldPosDiff = mouseWorldPosStart - Camera.main.ScreenToWorldPoint(Input.mousePosition);
             camera.transform.position += mouseWorldPosDiff;
-            Camera.main.transform.position = new Vector3(
-            Mathf.Clamp(Camera.main.transform.position.x, 0, 78),
-        Mathf.Clamp(Camera.main.transform.position.y, -30, 40), -10);
         }
     }
 }

@@ -7138,10 +7138,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camera: {fileID: 519420031}
-  topRight: {fileID: 541215184}
-  topLeft: {fileID: 0}
-  bottomRight: {fileID: 0}
   bottomLeft: {fileID: 823470452}
+  topRight: {fileID: 541215184}
+  length: {fileID: 848844418}
+  width: {fileID: 523215982}
 --- !u!4 &2012096442
 Transform:
   m_ObjectHideFlags: 0
