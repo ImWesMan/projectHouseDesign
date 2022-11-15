@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using UnityEngine.UI;
 public class CameraController : MonoBehaviour
 {
     // Start is called before the first frame update
