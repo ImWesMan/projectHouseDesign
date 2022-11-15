@@ -10,6 +10,10 @@ public class GridCreation : MonoBehaviour
     [SerializeField] Transform cam;
     [SerializeField] Camera camera;
     [SerializeField] Tile tilePrefab;
+
+    private Vector3 startPos;
+    private float startZoom;
+
    public void GenerateGrid()
    {
         height = heightSlide.value;
@@ -35,7 +39,15 @@ public class GridCreation : MonoBehaviour
         float cameraWidth = cameraHeight * camera.aspect;
         cam.transform.position = new Vector3(width/2.0f + cameraWidth/5.2f , height/2.0f - 0.5f, -10);
         camera.backgroundColor = new Color(0.75f, 0.75f, 0.75f, 1.0f);
+
+        startPos = camera.transform.position;
+        startZoom = camera.orthographicSize;
      
 
+   }
+
+   public void resetGrid() {
+        camera.transform.position = startPos;
+        camera.orthographicSize = startZoom;
    }
 }

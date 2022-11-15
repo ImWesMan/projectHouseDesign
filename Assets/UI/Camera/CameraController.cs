@@ -1,6 +1,6 @@
 using UnityEngine;
-using UnityEngine.UI;
-public class cameraController : MonoBehaviour
+
+public class CameraController : MonoBehaviour
 {
     // Start is called before the first frame update
     private Vector3 mouseWorldPosStart;
@@ -26,7 +26,6 @@ public class cameraController : MonoBehaviour
         Debug.Log(topRightPos);
         
     }
-
 
     void Update()
    {
@@ -67,7 +66,9 @@ public class cameraController : MonoBehaviour
             Camera.main.orthographicSize = Mathf.Clamp(Camera.main.orthographicSize - zoomDiff * zoomScale, zoomMin, zoomMax);
             Vector3 mouseWorldPosDiff = mouseWorldPosStart - Camera.main.ScreenToWorldPoint(Input.mousePosition);
             camera.transform.position += mouseWorldPosDiff;
+            
         }
     }
+
 }
 
