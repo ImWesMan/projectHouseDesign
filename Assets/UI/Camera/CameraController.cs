@@ -55,7 +55,11 @@ public class cameraController : MonoBehaviour
         if(drag)
         {
             Camera.main.transform.position = Origin - Difference;
+            Camera.main.transform.position = new Vector3(
+      Mathf.Clamp(Camera.main.transform.position.x, 0, 78),
+        Mathf.Clamp(Camera.main.transform.position.y, -30, 40), -10);
         }
+        
     }
 
     private void Zoom(float zoomDiff)
@@ -66,6 +70,9 @@ public class cameraController : MonoBehaviour
             Camera.main.orthographicSize = Mathf.Clamp(Camera.main.orthographicSize - zoomDiff * zoomScale, zoomMin, zoomMax);
             Vector3 mouseWorldPosDiff = mouseWorldPosStart - Camera.main.ScreenToWorldPoint(Input.mousePosition);
             camera.transform.position += mouseWorldPosDiff;
+            Camera.main.transform.position = new Vector3(
+            Mathf.Clamp(Camera.main.transform.position.x, 0, 78),
+        Mathf.Clamp(Camera.main.transform.position.y, -30, 40), -10);
         }
     }
 }
