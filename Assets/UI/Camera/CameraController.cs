@@ -7,31 +7,28 @@ public class cameraController : MonoBehaviour
     public Camera camera;
     private float zoomScale = 10.0f;
     private float zoomMin = 5.0f;
-    private float zoomMax = 30.0f;
-    public GameObject topRight;
-    public GameObject topLeft;
-    public GameObject bottomRight;
+    private float zoomMax = 50.0f;
+    
     public GameObject bottomLeft;
-     Vector3 topRightPos;
-     Vector3 topLeftPos;
-      Vector3 bottomRightPos;
-      Vector3 bottomLeftPos;
+    public GameObject topRight;
+    
+    Vector3 bottomLeftPos;
+    Vector3 topRightPos;
+     
     // Update is called once per frame
      public void getPos() {
-        topRightPos = camera.WorldToScreenPoint(topRight.transform.position);
-        topLeftPos = camera.WorldToScreenPoint(topLeft.transform.position);
-        bottomRightPos = camera.WorldToScreenPoint(bottomRight.transform.position);
         bottomLeftPos = camera.WorldToScreenPoint(bottomLeft.transform.position);
-        Debug.Log(topRightPos);
-        Debug.Log(topLeftPos);
-        Debug.Log(bottomRightPos);
+        topRightPos = camera.WorldToScreenPoint(topRight.transform.position);
+        
         Debug.Log(bottomLeftPos);
+        Debug.Log(topRightPos);
+        
     }
 
 
     void Update()
    {
-    if(Input.mousePosition.x > bottomLeftPos.x && Input.mousePosition.y > bottomLeftPos.y && Input.mousePosition.x < bottomRightPos.x && Input.mousePosition.y < topRightPos.y )
+    if(Input.mousePosition.x > bottomLeftPos.x && Input.mousePosition.x < topRightPos.x && Input.mousePosition.y > bottomLeftPos.y && Input.mousePosition.y < topRightPos.y )
     {
     Zoom(Input.GetAxis("Mouse ScrollWheel"));
     }
