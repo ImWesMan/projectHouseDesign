@@ -8,7 +8,9 @@ public class cameraController : MonoBehaviour
     private float zoomScale = 10.0f;
     private float zoomMin = 5.0f;
     private float zoomMax = 50.0f;
-    
+    private Vector3 Origin;
+    private Vector3 Difference;
+    private bool drag = false;
     public GameObject bottomLeft;
     public GameObject topRight;
     
@@ -31,8 +33,30 @@ public class cameraController : MonoBehaviour
     if(Input.mousePosition.x > bottomLeftPos.x && Input.mousePosition.x < topRightPos.x && Input.mousePosition.y > bottomLeftPos.y && Input.mousePosition.y < topRightPos.y )
     {
     Zoom(Input.GetAxis("Mouse ScrollWheel"));
+    Drag();
     }
    }
+
+    private void Drag()
+    {
+        if(Input.GetMouseButton(0))
+        {
+            Difference = (Camera.main.ScreenToWorldPoint(Input.mousePosition)) - Camera.main.transform.position;
+            if(drag == false)
+            {
+                drag = true;
+                Origin = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            }
+        }
+        else
+        {
+            drag = false;
+        }
+        if(drag)
+        {
+            Camera.main.transform.position = Origin - Difference;
+        }
+    }
 
     private void Zoom(float zoomDiff)
     {
