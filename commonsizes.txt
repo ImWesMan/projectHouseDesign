@@ -1,11 +1,8 @@
 PRESET ITEM BANK-
 
-Couch
-Lengths x Widths
-5	2
-6	3
-7	4
-8
+Sofa Small 5 x 2
+Sofa Medium 6 x 2
+Sofa Large 7 x 3
 
 Coffee Table
 Lengths x Widths
