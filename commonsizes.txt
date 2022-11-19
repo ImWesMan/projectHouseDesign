@@ -1,13 +1,10 @@
 PRESET ITEM BANK-
 
-Couch
-Lengths x Widths
-5	2
-6	3
-7	4
-8
+Sofa Small 5 x 2
+Sofa Medium 6 x 2
+Sofa Large 7 x 3
 
-Living Table
+Coffee Table
 Lengths x Widths
 2                 2
 4                 3
@@ -63,6 +60,10 @@ Dryer
 Chair
 
 Sofa Chair
+
+Instand Water Heater
+
+Furnace 
 
 
 
