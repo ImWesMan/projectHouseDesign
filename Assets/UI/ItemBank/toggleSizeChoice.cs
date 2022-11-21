@@ -11,13 +11,14 @@ public class toggleSizeChoice : MonoBehaviour
     TMP_Text statusText;
     bool enabled;
     GameObject[] buttonsBelow;
-
+    [SerializeField]
+    GameObject content;
+    float childColumns;
    IEnumerator Start()
    {
     bool enabled = true;
     setState();
     yield return new WaitForSeconds(0.5f);
-    setState();
    }
     // Start is called before the first frame update
    public void setState()
@@ -31,12 +32,15 @@ public class toggleSizeChoice : MonoBehaviour
         {
             if(gameObject.transform.position.y > button.transform.position.y)
             {
-                Debug.Log(Mathf.Ceil((gameObject.transform.childCount/3.0f)));
+                 childColumns = (Mathf.Ceil((gameObject.transform.childCount/3.0f)));
                  RectTransform transform = button.GetComponent<RectTransform>();
-                 transform.anchoredPosition = new Vector2(transform.anchoredPosition.x, transform.anchoredPosition.y + Mathf.Ceil((gameObject.transform.childCount/3.0f) * 140));
+                 transform.localPosition = new Vector2(transform.localPosition.x, transform.localPosition.y + Mathf.Ceil((gameObject.transform.childCount/3.0f))* 120);
+
             }
             
         }
+        RectTransform contentTransform = content.GetComponent<RectTransform>();
+        //contentTransform.sizeDelta = new Vector2(contentTransform.sizeDelta.x, contentTransform.sizeDelta.y - (120 * childColumns) );
         statusText.text = "+";
     }
     if(enabled == false)
@@ -46,12 +50,14 @@ public class toggleSizeChoice : MonoBehaviour
         {
             if(gameObject.transform.position.y > button.transform.position.y)
             {
-                Debug.Log(Mathf.Ceil((gameObject.transform.childCount/3.0f)));
+                 childColumns = (Mathf.Ceil((gameObject.transform.childCount/3.0f)));
                  RectTransform transform = button.GetComponent<RectTransform>();
-                 transform.anchoredPosition = new Vector2(transform.anchoredPosition.x, transform.anchoredPosition.y - Mathf.Ceil((gameObject.transform.childCount/3.0f) * 135));
+                 transform.localPosition = new Vector2(transform.localPosition.x, transform.localPosition.y - Mathf.Ceil((gameObject.transform.childCount/3.0f)) * 120);
             }
             
         }
+         RectTransform contentTransform = content.GetComponent<RectTransform>();
+         //contentTransform.sizeDelta = new Vector2(contentTransform.sizeDelta.x, contentTransform.sizeDelta.y + (120 * childColumns) );
          statusText.text = "-";
     }
    }
