@@ -35,7 +35,7 @@ public class toggleSizeChoice : MonoBehaviour
             {
                  childColumns = (Mathf.Ceil((gameObject.transform.childCount/3.0f)));
                  RectTransform transform = button.GetComponent<RectTransform>();
-                 transform.localPosition = new Vector2(transform.localPosition.x, transform.localPosition.y + Mathf.Ceil((gameObject.transform.childCount/3.0f))* 120);
+                 transform.localPosition = new Vector2(transform.localPosition.x, transform.localPosition.y + Mathf.Ceil((gameObject.transform.childCount/2.0f))* 120);
 
             }
             
@@ -52,7 +52,7 @@ public class toggleSizeChoice : MonoBehaviour
             {
                  childColumns = (Mathf.Ceil((gameObject.transform.childCount/3.0f)));
                  RectTransform transform = button.GetComponent<RectTransform>();
-                 transform.localPosition = new Vector2(transform.localPosition.x, transform.localPosition.y - Mathf.Ceil((gameObject.transform.childCount/3.0f)) * 120);
+                 transform.localPosition = new Vector2(transform.localPosition.x, transform.localPosition.y - Mathf.Ceil((gameObject.transform.childCount/2.0f)) * 120);
                 
             }
              
