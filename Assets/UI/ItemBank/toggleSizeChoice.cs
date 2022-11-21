@@ -19,6 +19,7 @@ public class toggleSizeChoice : MonoBehaviour
     bool enabled = true;
     setState();
     yield return new WaitForSeconds(0.5f);
+    
    }
     // Start is called before the first frame update
    public void setState()
@@ -39,8 +40,7 @@ public class toggleSizeChoice : MonoBehaviour
             }
             
         }
-        RectTransform contentTransform = content.GetComponent<RectTransform>();
-        //contentTransform.sizeDelta = new Vector2(contentTransform.sizeDelta.x, contentTransform.sizeDelta.y - (120 * childColumns) );
+       //LayoutRebuilder.ForceRebuildLayoutImmediate(content.GetComponent<RectTransform>());
         statusText.text = "+";
     }
     if(enabled == false)
@@ -53,11 +53,11 @@ public class toggleSizeChoice : MonoBehaviour
                  childColumns = (Mathf.Ceil((gameObject.transform.childCount/3.0f)));
                  RectTransform transform = button.GetComponent<RectTransform>();
                  transform.localPosition = new Vector2(transform.localPosition.x, transform.localPosition.y - Mathf.Ceil((gameObject.transform.childCount/3.0f)) * 120);
+                
             }
-            
+             
         }
-         RectTransform contentTransform = content.GetComponent<RectTransform>();
-         //contentTransform.sizeDelta = new Vector2(contentTransform.sizeDelta.x, contentTransform.sizeDelta.y + (120 * childColumns) );
+           //LayoutRebuilder.ForceRebuildLayoutImmediate(content.GetComponent<RectTransform>());
          statusText.text = "-";
     }
    }
