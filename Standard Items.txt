@@ -1,0 +1,39 @@
+Living Room
+- Lounge Chair
+- 2 Seat Sofa
+- 3 Seat Sofa 
+- Coffe Table
+- TV/Entertainment Center
+- Plant
+
+Dinning Room
+- Dinning Table
+- Chair
+
+Kitchen 
+- Double Sink
+- Single Sink
+- Refridgerator
+- Dishwasher
+- Oven 
+- Cooktop
+
+Bathroom
+- Single Vanity
+- Double Vanity
+- Toilet
+- Shower
+- Tub
+
+Bedroom
+- King
+- Queen
+- Twin
+- Nightstand
+- Dresser
+
+Mics
+- desk
+- pooltable
+- weights
+- standing lamp

@@ -1,0 +1,21 @@
+Main Square Footage
+- 4000
+- 3500
+- 3000
+- 2500
+- 2000
+- 1500
+- 1000
+- 800
+
+Bedrooms
+- Master
+- Kids room
+- Basement
+- laundry room
+- bathroom
+
+Garage
+- 2 car
+- 3 car
+- 1 car
