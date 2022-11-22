@@ -19,6 +19,6 @@ public class SliderValues : MonoBehaviour
 
     public void textUpdate(float value)
     {
-        text.text = value + " '";
+        text.text = Mathf.Floor(value) + "'";
     }
 }
