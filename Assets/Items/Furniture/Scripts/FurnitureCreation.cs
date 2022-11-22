@@ -17,7 +17,7 @@ public class FurnitureCreation : MonoBehaviour
         float length = Mathf.Floor(lengthSlider.value);
 
         var furniture = Instantiate(prefab, new Vector3(width / 2.0f - 0.5f, length / 2.0f - 0.5f, 1.0f), Quaternion.identity);
-        
+        furniture.GetComponent<Renderer>().material.color = new Color(1.0f,1.0f,1.0f,0.5f);
         if(input.text == "") {
             furniture.name = "Furniture";
         }
