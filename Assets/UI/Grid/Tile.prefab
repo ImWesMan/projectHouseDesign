@@ -73,7 +73,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -3
+  m_SortingOrder: -2
   m_Sprite: {fileID: 7482667652216324306, guid: db750325989564987a34393247d883b4, type: 3}
   m_Color: {r: 0.6745283, g: 0.77115273, b: 1, a: 1}
   m_FlipX: 0
@@ -100,4 +100,3 @@ MonoBehaviour:
   normalColor: {r: 0.5283019, g: 0.5283019, b: 0.5283019, a: 1}
   offsetColor: {r: 0.6415094, g: 0.6415094, b: 0.6415094, a: 1}
   renderer: {fileID: 1097974872991461170}
-  isOccupied: 0
