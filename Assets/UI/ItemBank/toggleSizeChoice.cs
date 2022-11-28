@@ -9,6 +9,7 @@ public class toggleSizeChoice : MonoBehaviour
     GameObject gameObject;
     [SerializeField]
     TMP_Text statusText;
+    [SerializeField]
     bool enabled;
     GameObject[] buttonsBelow;
     [SerializeField]
@@ -60,5 +61,19 @@ public class toggleSizeChoice : MonoBehaviour
            //LayoutRebuilder.ForceRebuildLayoutImmediate(content.GetComponent<RectTransform>());
          statusText.text = "-";
     }
+   }
+
+   public void resetOnLeave()
+   {
+         buttonsBelow = GameObject.FindGameObjectsWithTag("ItemCategory");
+         foreach (GameObject x in buttonsBelow)
+         {
+            Debug.Log(x.GetComponent<toggleSizeChoice>().enabled);
+            Debug.Log("Done");
+            if(x.GetComponent<toggleSizeChoice>().enabled == false)
+            {
+                x.GetComponent<toggleSizeChoice>().setState();
+            }
+         }
    }
 }
