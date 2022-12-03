@@ -12,6 +12,8 @@ public class toggleSizeChoice : MonoBehaviour
     [SerializeField]
     bool enabled;
     GameObject[] buttonsBelow;
+    GameObject wallBank;
+    GameObject furnitureBank;
     [SerializeField]
     GameObject content;
     float childColumns;
@@ -20,7 +22,6 @@ public class toggleSizeChoice : MonoBehaviour
     bool enabled = true;
     setState();
     yield return new WaitForSeconds(0.5f);
-    
    }
     // Start is called before the first frame update
    public void setState()
@@ -75,5 +76,13 @@ public class toggleSizeChoice : MonoBehaviour
                 x.GetComponent<toggleSizeChoice>().setState();
             }
          }
+   }
+
+   public void loadWallBank()
+   {
+     wallBank = GameObject.FindGameObjectWithTag("wallBank");
+     wallBank.SetActive(true);
+     wallBank.SetActive(false);
+     wallBank.SetActive(true);
    }
 }
