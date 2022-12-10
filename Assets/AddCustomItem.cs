@@ -48,23 +48,20 @@ public class AddCustomItem : MonoBehaviour
         inputLength.text = null;
     }
 
-    Transform RecursiveFindChild(Transform parent, string childName)
-    {
-        foreach (Transform child in parent)
-        {
-            if(child.name == childName)
-            {
+    Transform RecursiveFindChild(Transform parent, string childName) {
+
+        foreach (Transform child in parent) {
+            if(child.name == childName) {
                 return child;
             }
-            else
-            {
+            else {
                 Transform found = RecursiveFindChild(child, childName);
-                if (found != null)
-                {
+                if (found != null) {
                         return found;
                 }
             }
         }
+        
         return null;
     }
 
