@@ -9,6 +9,7 @@ TagManager:
   - wallBank
   - furnitureBank
   - wallCategory
+  - Button
   layers:
   - Default
   - TransparentFX
