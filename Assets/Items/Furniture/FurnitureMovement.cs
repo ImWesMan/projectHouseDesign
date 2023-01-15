@@ -16,12 +16,20 @@ public class FurnitureMovement : MonoBehaviour {
     {
         if (Input.GetMouseButtonDown(0))
         {
-            Vector3 objectPos = Camera.main.WorldToScreenPoint(gameObject.transform.position);
-            Vector3 mousePos = Input.mousePosition;
+            Vector3 objectPos = gameObject.transform.position;
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector3 objectScale = gameObject.transform.localScale;
+            float halfX = objectScale.x / 2.0f;
+            float halfY = objectScale.y / 2.0f;
+            float halfZ = objectScale.z / 2.0f;
 
-            if (objectPos.x < mousePos.x + 100f && objectPos.x > mousePos.x - 100f &&
-                objectPos.y < mousePos.y + 100f && objectPos.y > mousePos.y - 100f &&
-                objectPos.z < mousePos.z + 100f && objectPos.z > mousePos.z - 100f)
+
+            if (mousePos.x > objectPos.x - halfX && 
+                mousePos.x < objectPos.x + halfX &&
+                mousePos.y > objectPos.y - halfY && 
+                mousePos.y < objectPos.y + halfY &&
+                mousePos.z > objectPos.z - halfZ && 
+                mousePos.z < objectPos.z + halfZ)
             {
                 cameraController.GetComponent<CameraController>().isDraggable = false;
                 gameObject.GetComponent<FurnitureState>().isSelected = true;
@@ -34,7 +42,21 @@ public class FurnitureMovement : MonoBehaviour {
         {
             Vector3 cursorPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z);
             Vector3 cursorPosition = Camera.main.ScreenToWorldPoint(cursorPoint) + offset;
-            transform.position = cursorPosition;
+
+            Vector3 objectScale = gameObject.transform.localScale;
+            float offsetX = 0.0f;
+            float offsetY = 0.0f;
+            float offsetZ = 0.0f;
+            if(objectScale.x % 2 == 0) {
+                offsetX = 0.5f;
+            }
+            if(objectScale.y % 2 == 0) {
+                offsetY = 0.5f;
+            }
+            if(objectScale.z % 2 == 0) {
+                offsetZ = 0.5f;
+            }
+            transform.position = new Vector3(Mathf.Round(cursorPosition.x) + offsetX, Mathf.Round(cursorPosition.y) + offsetY, Mathf.Round(cursorPosition.z) + offsetZ);
         }
         if (Input.GetMouseButtonUp(0))
         {
