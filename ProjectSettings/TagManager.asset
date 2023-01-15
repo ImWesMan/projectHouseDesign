@@ -10,6 +10,7 @@ TagManager:
   - furnitureBank
   - wallCategory
   - Button
+  - CameraController
   layers:
   - Default
   - TransparentFX

@@ -36185,8 +36185,8 @@ MonoBehaviour:
   FurnitureBank: {fileID: 723292776}
   WallBank: {fileID: 1970730184}
   label: {fileID: 1237453501}
-  width: {fileID: 1451937147}
-  length: {fileID: 547413286}
+  width: {fileID: 1856932733}
+  length: {fileID: 903230040}
   inputLabel: {fileID: 786081049}
   inputWidth: {fileID: 1856932733}
   inputLength: {fileID: 903230040}
@@ -45178,7 +45178,7 @@ GameObject:
   - component: {fileID: 2012096441}
   m_Layer: 0
   m_Name: cameraController
-  m_TagString: Untagged
+  m_TagString: CameraController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -45200,6 +45200,7 @@ MonoBehaviour:
   topRight: {fileID: 541215184}
   length: {fileID: 0}
   width: {fileID: 0}
+  isDraggable: 1
 --- !u!4 &2012096442
 Transform:
   m_ObjectHideFlags: 0
@@ -45346,9 +45347,11 @@ GameObject:
   - component: {fileID: 2017629365}
   - component: {fileID: 2017629364}
   - component: {fileID: 2017629363}
+  - component: {fileID: 2017629369}
+  - component: {fileID: 2017629368}
   m_Layer: 5
   m_Name: PlaceHolder
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -45464,7 +45467,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2017629366}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2017629368}
+        m_TargetAssemblyTypeName: FurnitureCreation, Assembly-CSharp
+        m_MethodName: createFurniture
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2017629366
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45503,6 +45518,34 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2017629361}
   m_CullTransparentMesh: 1
+--- !u!114 &2017629368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2017629361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d6a907f1529175409a64260b754dd5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 3622895612015199202, guid: 8464482c895a66f428866182d5300843, type: 3}
+--- !u!114 &2017629369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2017629361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a5240f85b1e29044806e137852de5b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label: 
+  width: 0
+  length: 0
 --- !u!1 &2017910447
 GameObject:
   m_ObjectHideFlags: 0
@@ -47301,7 +47344,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 2
+  m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
