@@ -7,11 +7,10 @@ using TMPro;
 public class FurnitureCreation : MonoBehaviour
 {
     [SerializeField] GameObject prefab;
-
+    [SerializeField] bool active;
     
 
     public void createFurniture() {
-
          float width = gameObject.GetComponent<AssignLabelAndSize>().width;
          Debug.Log(width);
          float length = gameObject.GetComponent<AssignLabelAndSize>().length;

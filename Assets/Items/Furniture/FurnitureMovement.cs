@@ -6,7 +6,7 @@ public class FurnitureMovement : MonoBehaviour {
     private Vector3 screenPoint;
     private Vector3 offset;
     private bool isDragging;
-
+    private bool creationMode;
     public void Start() {
         cameraController =  GameObject.FindWithTag("CameraController");
     }         
@@ -14,16 +14,16 @@ public class FurnitureMovement : MonoBehaviour {
     
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
+        if((Input.GetMouseButtonDown(0)) || gameObject.GetComponent<FurnitureState>().isSelected == true)
+        { 
+            Debug.Log("Mouse Down");
             Vector3 objectPos = gameObject.transform.position;
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector3 objectScale = gameObject.transform.localScale;
             float halfX = objectScale.x / 2.0f;
             float halfY = objectScale.y / 2.0f;
             float halfZ = objectScale.z / 2.0f;
-
-
+            
             if (mousePos.x > objectPos.x - halfX && 
                 mousePos.x < objectPos.x + halfX &&
                 mousePos.y > objectPos.y - halfY && 
@@ -31,13 +31,16 @@ public class FurnitureMovement : MonoBehaviour {
                 mousePos.z > objectPos.z - halfZ && 
                 mousePos.z < objectPos.z + halfZ)
             {
+                
                 cameraController.GetComponent<CameraController>().isDraggable = false;
                 gameObject.GetComponent<FurnitureState>().isSelected = true;
                 isDragging = true;
                 screenPoint = Camera.main.WorldToScreenPoint(gameObject.transform.position);
                 offset = gameObject.transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z));
+                
             }
         }
+
         if (Input.GetMouseButton(0) && isDragging)
         {
             Vector3 cursorPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z);
@@ -63,6 +66,10 @@ public class FurnitureMovement : MonoBehaviour {
             cameraController.GetComponent<CameraController>().isDraggable = true;
             gameObject.GetComponent<FurnitureState>().isSelected = false;
             isDragging = false;
+        }
+        if(gameObject.GetComponent<FurnitureState>().isSelected == true)
+        {
+
         }
     }
 }
