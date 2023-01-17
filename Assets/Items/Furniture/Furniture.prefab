@@ -113,7 +113,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c50e6db65466ae409a8ed19d0c5a01f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isSelected: 1
+  isSelected: 0
+  isMoving: 1
+  isFirstCreated: 1
+  position: {x: 0, y: 0}
+  posx: 0
+  posy: 0
+  furnitureWidth: 0
+  furnitureHeight: 0
 --- !u!61 &4834811088409241134
 BoxCollider2D:
   m_ObjectHideFlags: 0

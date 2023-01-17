@@ -7,6 +7,8 @@ public class FurnitureState : MonoBehaviour
     [SerializeField]
     public bool isSelected;
     [SerializeField]
+    public bool isMoving = true;
+    [SerializeField]
     public bool isFirstCreated = true;
     [SerializeField]
     public Vector2 position;
@@ -35,17 +37,38 @@ public class FurnitureState : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(isSelected == true || isFirstCreated == true)
+
+        if(isMoving == false && isSelected == true)
         {
-           gameObject.GetComponent<SpriteRenderer>().color = Color.red;
+            gameObject.GetComponent<SpriteRenderer>().color = Color.yellow;
+        }
+        if(isMoving == true || isFirstCreated == true)
+        {
+           posx = gameObject.transform.position.x;
+            posy = gameObject.transform.position.y;
+           if(posx + (gameObject.transform.localScale.x / 2.0f) > gridWidth || posy + (gameObject.transform.localScale.y / 2.0f) > gridHeight || 
+               posx - (gameObject.transform.localScale.x / 2.0f) < -1 || posy - (gameObject.transform.localScale.y / 2.0f) < -1) {
+
+                gameObject.GetComponent<SpriteRenderer>().color = Color.red;
+            }
+           else {
+            gameObject.GetComponent<SpriteRenderer>().color = Color.green;
+           }
+
+           
+
         }
         else
         {
             posx = gameObject.transform.position.x;
             posy = gameObject.transform.position.y;
             position = new Vector2(posx, posy);
-            gameObject.GetComponent<SpriteRenderer>().color = new Color(0,0,0,1); 
-            if(posx + furnitureWidth/4 > gridWidth - 1 || posy + (furnitureHeight/4) > gridHeight - 1 || posx - furnitureWidth/4 < 0 || posy - (furnitureHeight/4) < 0 && isSelected == false)
+            if(isSelected == false)
+            {
+            gameObject.GetComponent<SpriteRenderer>().color = new Color(0,0,0,1);
+            } 
+            if(posx + (gameObject.transform.localScale.x / 2.0f) > gridWidth || posy + (gameObject.transform.localScale.y / 2.0f) > gridHeight || 
+               posx - (gameObject.transform.localScale.x / 2.0f) < -1 || posy - (gameObject.transform.localScale.y / 2.0f) < -1 && isMoving == false)
             {
                 Destroy(gameObject);
             }

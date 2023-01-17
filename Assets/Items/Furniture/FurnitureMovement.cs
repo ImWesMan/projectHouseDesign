@@ -33,7 +33,7 @@ public class FurnitureMovement : MonoBehaviour {
             {
                 
                 cameraController.GetComponent<CameraController>().isDraggable = false;
-                gameObject.GetComponent<FurnitureState>().isSelected = true;
+                gameObject.GetComponent<FurnitureState>().isSelected = !gameObject.GetComponent<FurnitureState>().isSelected;
                 isDragging = true;
                 screenPoint = Camera.main.WorldToScreenPoint(gameObject.transform.position);
                 offset = gameObject.transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z));
@@ -41,11 +41,12 @@ public class FurnitureMovement : MonoBehaviour {
             }
         }
 
+
         if (Input.GetMouseButton(0) && isDragging)
         {
             Vector3 cursorPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z);
             Vector3 cursorPosition = Camera.main.ScreenToWorldPoint(cursorPoint) + offset;
-
+            gameObject.GetComponent<FurnitureState>().isMoving = true;
             Vector3 objectScale = gameObject.transform.localScale;
             float offsetX = 0.0f;
             float offsetY = 0.0f;
@@ -64,7 +65,7 @@ public class FurnitureMovement : MonoBehaviour {
         if (Input.GetMouseButtonUp(0))
         {
             cameraController.GetComponent<CameraController>().isDraggable = true;
-            gameObject.GetComponent<FurnitureState>().isSelected = false;
+            gameObject.GetComponent<FurnitureState>().isMoving = false;
             isDragging = false;
             gameObject.GetComponent<FurnitureState>().isFirstCreated = false;
         }
