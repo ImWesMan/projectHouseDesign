@@ -2988,7 +2988,7 @@ GameObject:
   - component: {fileID: 127243176}
   m_Layer: 0
   m_Name: GridManager
-  m_TagString: Untagged
+  m_TagString: GridManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3005,6 +3005,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3979536dfabb3b34cbb6d9522a51a7cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  width: 0
+  height: 0
   heightSlide: {fileID: 848844418}
   widthSlide: {fileID: 523215982}
   cam: {fileID: 519420032}

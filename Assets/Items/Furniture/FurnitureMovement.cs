@@ -14,9 +14,9 @@ public class FurnitureMovement : MonoBehaviour {
     
     void Update()
     {
-        if((Input.GetMouseButtonDown(0)) || gameObject.GetComponent<FurnitureState>().isSelected == true)
+        if((Input.GetMouseButtonDown(0)) || gameObject.GetComponent<FurnitureState>().isFirstCreated == true)
         { 
-            Debug.Log("Mouse Down");
+            
             Vector3 objectPos = gameObject.transform.position;
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector3 objectScale = gameObject.transform.localScale;
@@ -66,10 +66,8 @@ public class FurnitureMovement : MonoBehaviour {
             cameraController.GetComponent<CameraController>().isDraggable = true;
             gameObject.GetComponent<FurnitureState>().isSelected = false;
             isDragging = false;
+            gameObject.GetComponent<FurnitureState>().isFirstCreated = false;
         }
-        if(gameObject.GetComponent<FurnitureState>().isSelected == true)
-        {
-
-        }
+     
     }
 }

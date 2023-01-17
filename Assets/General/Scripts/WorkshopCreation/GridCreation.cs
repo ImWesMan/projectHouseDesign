@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class GridCreation : MonoBehaviour
 {
-   float width, height;
+   public float width, height;
    public Slider heightSlide;
    public Slider widthSlide;
     [SerializeField] Transform cam;

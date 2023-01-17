@@ -12,9 +12,9 @@ public class FurnitureCreation : MonoBehaviour
 
     public void createFurniture() {
          float width = gameObject.GetComponent<AssignLabelAndSize>().width;
-         Debug.Log(width);
+         
          float length = gameObject.GetComponent<AssignLabelAndSize>().length;
-         Debug.Log(length);
+         
         var furniture = Instantiate(prefab, Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.identity);
         furniture.GetComponent<Renderer>().material.color = new Color(1.0f,1.0f,1.0f,0.5f);
         furniture.name = gameObject.GetComponent<AssignLabelAndSize>().label;
