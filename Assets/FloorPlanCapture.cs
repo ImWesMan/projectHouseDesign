@@ -20,14 +20,14 @@ public class FloorPlanCapture : MonoBehaviour
 
         RecenterCamera();
 
-        canvas.gameObject.SetActive(false);
+        canvas.gameObject.GetComponent<Canvas>().enabled = false;;
         ScreenCapture.CaptureScreenshot("Floorplan.png");
         Invoke("Activate", 0.02f);
 
     }
 
     private void Activate(){
-        canvas.gameObject.SetActive(true);
+         canvas.gameObject.GetComponent<Canvas>().enabled = true;
     }
 
     public void RecenterCamera()
