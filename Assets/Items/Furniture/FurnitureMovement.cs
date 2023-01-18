@@ -34,7 +34,9 @@ public class FurnitureMovement : MonoBehaviour {
                 mousePos.z > objectPos.z - halfZ && 
                 mousePos.z < objectPos.z + halfZ)
             {
+                
                 gameObject.GetComponent<FurnitureState>().isSelected = !gameObject.GetComponent<FurnitureState>().isSelected;
+                 
             }
         }
 
@@ -50,6 +52,8 @@ public class FurnitureMovement : MonoBehaviour {
             mousePos.z < objectPos.z + halfZ) {
 
                 cameraController.GetComponent<CameraController>().isDraggable = false;
+                //need this line for some reason
+                gameObject.GetComponent<FurnitureState>().isFirstCreated = false;
                 isDragging = true;
                 screenPoint = Camera.main.WorldToScreenPoint(gameObject.transform.position);
                 offset = gameObject.transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z));

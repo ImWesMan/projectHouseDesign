@@ -15,6 +15,7 @@ public class CameraController : MonoBehaviour
     public GameObject topRight;
     Vector3 bottomLeftPos;
     Vector3 topRightPos;
+    Vector3 oldPos;
     public Slider length;
     public Slider width;
     public bool isDraggable = true;
@@ -58,7 +59,7 @@ public class CameraController : MonoBehaviour
         if(drag)
         {
             Camera.main.transform.position = Origin - Difference;
-            moved = true;
+            
         }
         }
         
