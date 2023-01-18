@@ -20,19 +20,21 @@ public class FloorPlanCapture : MonoBehaviour
 
         RecenterCamera();
 
-        canvas.gameObject.GetComponent<Canvas>().enabled = false;;
+        Camera.main.cullingMask= ~(1<<LayerMask.NameToLayer("UI"));
+        // canvas.gameObject.GetComponent<Canvas>().enabled = false;;
         ScreenCapture.CaptureScreenshot("Floorplan.png");
         Invoke("Activate", 0.02f);
 
     }
 
     private void Activate(){
-         canvas.gameObject.GetComponent<Canvas>().enabled = true;
+        Camera.main.cullingMask |=(1<<LayerMask.NameToLayer("UI"));
+        //  canvas.gameObject.GetComponent<Canvas>().enabled = true;
     }
 
     public void RecenterCamera()
     {
-        Vector3 gridCenter = new Vector3(width / 2.0f, height / 2.0f, 0);
+        Vector3 gridCenter = new Vector3(width / 2.0f, height / 2.0f, -10.0f);
         cam.position = gridCenter;
     }
 }
