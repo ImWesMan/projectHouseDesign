@@ -7,7 +7,7 @@ public class FurnitureMovement : MonoBehaviour {
     private Vector3 offset;
     public bool isDragging;
     private bool creationMode;
-    private bool firstSelect = true;
+    public bool movedItem = false;
     Vector3 mouseDownPos;
     public void Start() {
         cameraController =  GameObject.FindWithTag("CameraController");
@@ -34,9 +34,7 @@ public class FurnitureMovement : MonoBehaviour {
                 mousePos.z > objectPos.z - halfZ && 
                 mousePos.z < objectPos.z + halfZ)
             {
-                
                 gameObject.GetComponent<FurnitureState>().isSelected = !gameObject.GetComponent<FurnitureState>().isSelected;
-                
             }
         }
 
@@ -51,7 +49,6 @@ public class FurnitureMovement : MonoBehaviour {
             mousePos.z > objectPos.z - halfZ && 
             mousePos.z < objectPos.z + halfZ) {
 
-                gameObject.GetComponent<FurnitureState>().isFirstCreated = false;
                 cameraController.GetComponent<CameraController>().isDraggable = false;
                 isDragging = true;
                 screenPoint = Camera.main.WorldToScreenPoint(gameObject.transform.position);
@@ -79,8 +76,15 @@ public class FurnitureMovement : MonoBehaviour {
                 offsetZ = 0.5f;
             }
             
-            gameObject.transform.position = new Vector3(Mathf.Floor(cursorPosition.x) + offsetX, Mathf.Floor(cursorPosition.y) + offsetY, Mathf.Floor(cursorPosition.z) + offsetZ);
-            cameraController.GetComponent<CameraController>().moved = true;
+            Vector3 newPosition = new Vector3(Mathf.Floor(cursorPosition.x) + offsetX, Mathf.Floor(cursorPosition.y) + offsetY, Mathf.Floor(cursorPosition.z) + offsetZ);
+            Debug.Log("new: " + newPosition);
+            Debug.Log("old: " + gameObject.transform.position);
+            if(!(gameObject.transform.position.x == newPosition.x && gameObject.transform.position.y == newPosition.y)) {
+                gameObject.transform.position = newPosition;
+                gameObject.GetComponent<FurnitureState>().isSelected = false;
+            }
+            
+            movedItem = true;
         }   
         
         if (Input.GetMouseButtonUp(0))
@@ -89,6 +93,7 @@ public class FurnitureMovement : MonoBehaviour {
             gameObject.GetComponent<FurnitureState>().isMoving = false;
             isDragging = false;
             gameObject.GetComponent<FurnitureState>().isFirstCreated = false;
+            movedItem = false;
         }
      
     }
