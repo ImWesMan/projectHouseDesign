@@ -5,7 +5,7 @@ using UnityEngine;
 public class FurnitureState : MonoBehaviour
 {
     [SerializeField]
-    public bool isSelected;
+    public bool isSelected = true;
     [SerializeField]
     public bool isMoving = true;
     [SerializeField]

@@ -18,6 +18,7 @@ public class CameraController : MonoBehaviour
     public Slider length;
     public Slider width;
     public bool isDraggable = true;
+    public bool moved = false;
     // Update is called once per frame
      public void getPos() {
         bottomLeftPos = camera.WorldToScreenPoint(bottomLeft.transform.position);
@@ -57,6 +58,7 @@ public class CameraController : MonoBehaviour
         if(drag)
         {
             Camera.main.transform.position = Origin - Difference;
+            moved = true;
         }
         }
         
