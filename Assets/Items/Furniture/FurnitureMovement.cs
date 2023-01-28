@@ -8,11 +8,26 @@ public class FurnitureMovement : MonoBehaviour {
     public bool isDragging;
     private bool creationMode;
     public bool movedItem = false;
-    Vector3 mouseDownPos;
+    Vector3 oldPos;
     public void Start() {
         cameraController =  GameObject.FindWithTag("CameraController");
     }         
 
+    void Select() {
+
+        gameObject.GetComponent<FurnitureState>().isSelected = !gameObject.GetComponent<FurnitureState>().isSelected;
+        if(gameObject.GetComponent<FurnitureState>().isSelected == true) {
+            GameObject selected = GameObject.FindWithTag("SelectedFurniture");
+            if(selected != null) {
+                selected.GetComponent<FurnitureState>().isSelected = false;
+                selected.tag = "Furniture";
+            }
+            gameObject.tag = "SelectedFurniture";
+        }
+        else {
+            gameObject.tag = "Furniture";
+        }
+    }
     
     void Update()
     {
@@ -22,6 +37,8 @@ public class FurnitureMovement : MonoBehaviour {
         float halfZ = objectScale.z / 2.0f;
         Vector3 objectPos = gameObject.transform.position;
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        
+        
         
         //selecting
         if((Input.GetMouseButtonUp(0)))
@@ -35,7 +52,12 @@ public class FurnitureMovement : MonoBehaviour {
                 mousePos.z < objectPos.z + halfZ)
             {
                 
-                gameObject.GetComponent<FurnitureState>().isSelected = !gameObject.GetComponent<FurnitureState>().isSelected;
+                if(cameraController.GetComponent<CameraController>().moved == false) {
+                    Debug.Log("entered 1");
+                    Select();
+                }
+                
+                //gameObject.GetComponent<FurnitureState>().isSelected = !gameObject.GetComponent<FurnitureState>().isSelected;
                  
             }
         }
@@ -51,6 +73,11 @@ public class FurnitureMovement : MonoBehaviour {
             mousePos.z > objectPos.z - halfZ && 
             mousePos.z < objectPos.z + halfZ) {
 
+                if(gameObject.GetComponent<FurnitureState>().isFirstCreated == true) {
+                    Debug.Log("entered 2");
+                    Select();
+                }
+                
                 cameraController.GetComponent<CameraController>().isDraggable = false;
                 //need this line for some reason
                 gameObject.GetComponent<FurnitureState>().isFirstCreated = false;
@@ -81,24 +108,42 @@ public class FurnitureMovement : MonoBehaviour {
             }
             
             Vector3 newPosition = new Vector3(Mathf.Floor(cursorPosition.x) + offsetX, Mathf.Floor(cursorPosition.y) + offsetY, Mathf.Floor(cursorPosition.z) + offsetZ);
-            Debug.Log("new: " + newPosition);
-            Debug.Log("old: " + gameObject.transform.position);
+            //Debug.Log("new: " + newPosition);
+            //Debug.Log("old: " + gameObject.transform.position);
             if(!(gameObject.transform.position.x == newPosition.x && gameObject.transform.position.y == newPosition.y)) {
-                gameObject.transform.position = newPosition;
-                gameObject.GetComponent<FurnitureState>().isSelected = false;
+                
+                movedItem = true;
+                gameObject.transform.position = newPosition; 
             }
-            
-            movedItem = true;
         }   
         
         if (Input.GetMouseButtonUp(0))
         {
+            if(mousePos.x > objectPos.x - halfX && 
+                mousePos.x < objectPos.x + halfX &&
+                mousePos.y > objectPos.y - halfY && 
+                mousePos.y < objectPos.y + halfY &&
+                mousePos.z > objectPos.z - halfZ && 
+                mousePos.z < objectPos.z + halfZ) {
+
+                if(movedItem == true) {
+                    Debug.Log("entered 3");
+                    Select();
+                }
+            }
             cameraController.GetComponent<CameraController>().isDraggable = true;
+            //cameraController.GetComponent<CameraController>().moved = false;
             gameObject.GetComponent<FurnitureState>().isMoving = false;
             isDragging = false;
             gameObject.GetComponent<FurnitureState>().isFirstCreated = false;
             movedItem = false;
         }
-     
+    }
+
+    void LateUpdate() {
+
+        if(Input.GetMouseButtonUp(0)) {
+            cameraController.GetComponent<CameraController>().moved = false;
+        }
     }
 }

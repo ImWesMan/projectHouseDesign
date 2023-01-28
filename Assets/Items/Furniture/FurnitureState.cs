@@ -40,7 +40,7 @@ public class FurnitureState : MonoBehaviour
 
         if(isMoving == false && isSelected == true)
         {
-            gameObject.GetComponent<SpriteRenderer>().color = Color.yellow;
+            gameObject.GetComponent<SpriteRenderer>().color = Color.cyan;
         }
         if(isMoving == true || isFirstCreated == true)
         {

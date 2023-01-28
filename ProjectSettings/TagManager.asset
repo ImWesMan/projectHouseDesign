@@ -12,6 +12,7 @@ TagManager:
   - Button
   - CameraController
   - GridManager
+  - SelectedFurniture
   layers:
   - Default
   - TransparentFX
