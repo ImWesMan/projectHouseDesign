@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7505609135613684637}
   m_Layer: 0
   m_Name: Tile
-  m_TagString: Untagged
+  m_TagString: Tile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -100,3 +100,4 @@ MonoBehaviour:
   normalColor: {r: 0.5283019, g: 0.5283019, b: 0.5283019, a: 1}
   offsetColor: {r: 0.6415094, g: 0.6415094, b: 0.6415094, a: 1}
   renderer: {fileID: 1097974872991461170}
+  isOccupied: 0

@@ -21,6 +21,12 @@ public class FurnitureState : MonoBehaviour
     public float furnitureWidth;
     public float furnitureHeight;
     GameObject gridManager;
+    public GameObject furnitureUI;
+    GameObject furnUI;
+    public float leftEdge;
+    public float rightEdge;
+    public float bottomEdge;
+    public float topEdge;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,8 +38,17 @@ public class FurnitureState : MonoBehaviour
         isFirstCreated = true;
         furnitureWidth = gameObject.transform.localScale.x;
         furnitureHeight = gameObject.transform.localScale.y;
+        
     }
 
+    public void createFurnitureUI()
+    {
+       furnUI = Instantiate(furnitureUI, new Vector3(posx - .35f, posy+furnitureHeight - 1.0f, 0), gameObject.transform.rotation);
+    }
+    public void destoryFurnitureUI()
+    {
+        Destroy(furnUI);
+    }
     // Update is called once per frame
     void Update()
     {
@@ -70,6 +85,7 @@ public class FurnitureState : MonoBehaviour
             if(posx + (gameObject.transform.localScale.x / 2.0f) > gridWidth || posy + (gameObject.transform.localScale.y / 2.0f) > gridHeight || 
                posx - (gameObject.transform.localScale.x / 2.0f) < -1 || posy - (gameObject.transform.localScale.y / 2.0f) < -1 && isMoving == false)
             {
+                Destroy(furnUI);
                 Destroy(gameObject);
             }
         }

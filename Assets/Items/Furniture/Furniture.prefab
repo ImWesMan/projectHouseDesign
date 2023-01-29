@@ -101,6 +101,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraController: {fileID: 0}
+  isDragging: 0
+  movedItem: 0
 --- !u!114 &-7943166023215851879
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -121,6 +123,7 @@ MonoBehaviour:
   posy: 0
   furnitureWidth: 0
   furnitureHeight: 0
+  furnitureUI: {fileID: 4059119836376928500, guid: 8b4a7ebff741ad44db3c0a60f77a9478, type: 3}
 --- !u!61 &4834811088409241134
 BoxCollider2D:
   m_ObjectHideFlags: 0

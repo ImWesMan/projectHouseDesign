@@ -8,9 +8,11 @@ public class FurnitureMovement : MonoBehaviour {
     public bool isDragging;
     private bool creationMode;
     public bool movedItem = false;
+    public GameObject GridManager;
     Vector3 oldPos;
     public void Start() {
         cameraController =  GameObject.FindWithTag("CameraController");
+        GridManager = GameObject.FindWithTag("GridManager");
     }         
 
     void Select() {
@@ -18,13 +20,16 @@ public class FurnitureMovement : MonoBehaviour {
         gameObject.GetComponent<FurnitureState>().isSelected = !gameObject.GetComponent<FurnitureState>().isSelected;
         if(gameObject.GetComponent<FurnitureState>().isSelected == true) {
             GameObject selected = GameObject.FindWithTag("SelectedFurniture");
+            gameObject.GetComponent<FurnitureState>().createFurnitureUI();
             if(selected != null) {
+                selected.GetComponent<FurnitureState>().destoryFurnitureUI();
                 selected.GetComponent<FurnitureState>().isSelected = false;
                 selected.tag = "Furniture";
             }
             gameObject.tag = "SelectedFurniture";
         }
         else {
+            gameObject.GetComponent<FurnitureState>().destoryFurnitureUI();
             gameObject.tag = "Furniture";
         }
     }
@@ -90,7 +95,7 @@ public class FurnitureMovement : MonoBehaviour {
 
         if ((Input.GetMouseButton(0) && isDragging))
         { 
-
+            gameObject.GetComponent<FurnitureState>().destoryFurnitureUI();
             Vector3 cursorPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z);
             Vector3 cursorPosition = Camera.main.ScreenToWorldPoint(cursorPoint) + offset;
             gameObject.GetComponent<FurnitureState>().isMoving = true;
@@ -114,6 +119,10 @@ public class FurnitureMovement : MonoBehaviour {
                 
                 movedItem = true;
                 gameObject.transform.position = newPosition; 
+                gameObject.GetComponent<FurnitureState>().leftEdge = gameObject.transform.position.x - ((objectScale.x - 1.0f) * 0.5f);
+                gameObject.GetComponent<FurnitureState>().rightEdge = gameObject.GetComponent<FurnitureState>().leftEdge + objectScale.x;
+                gameObject.GetComponent<FurnitureState>().bottomEdge = gameObject.transform.position.y - ((objectScale.y - 1.0f) * 0.5f);
+                gameObject.GetComponent<FurnitureState>().topEdge = gameObject.GetComponent<FurnitureState>().bottomEdge + objectScale.y;
             }
         }   
         
@@ -131,12 +140,14 @@ public class FurnitureMovement : MonoBehaviour {
                     Select();
                 }
             }
+            GridManager.GetComponent<TileManager>().furniturePlaced();
             cameraController.GetComponent<CameraController>().isDraggable = true;
             //cameraController.GetComponent<CameraController>().moved = false;
             gameObject.GetComponent<FurnitureState>().isMoving = false;
             isDragging = false;
             gameObject.GetComponent<FurnitureState>().isFirstCreated = false;
             movedItem = false;
+           
         }
     }
 
