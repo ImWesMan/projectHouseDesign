@@ -14,6 +14,7 @@ TagManager:
   - GridManager
   - SelectedFurniture
   - Tile
+  - ExampleUI
   layers:
   - Default
   - TransparentFX

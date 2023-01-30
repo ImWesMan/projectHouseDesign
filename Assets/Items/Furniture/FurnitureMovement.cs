@@ -10,6 +10,7 @@ public class FurnitureMovement : MonoBehaviour {
     public bool movedItem = false;
     public GameObject GridManager;
     Vector3 oldPos;
+    Vector3 objectScale;
     public void Start() {
         cameraController =  GameObject.FindWithTag("CameraController");
         GridManager = GameObject.FindWithTag("GridManager");
@@ -34,9 +35,16 @@ public class FurnitureMovement : MonoBehaviour {
         }
     }
     
+    public void calculateEdges()
+    {
+         gameObject.GetComponent<FurnitureState>().leftEdge = gameObject.transform.position.x - ((objectScale.x - 1.0f) * 0.5f);
+         gameObject.GetComponent<FurnitureState>().rightEdge = gameObject.GetComponent<FurnitureState>().leftEdge + objectScale.x;
+         gameObject.GetComponent<FurnitureState>().bottomEdge = gameObject.transform.position.y - ((objectScale.y - 1.0f) * 0.5f);
+         gameObject.GetComponent<FurnitureState>().topEdge = gameObject.GetComponent<FurnitureState>().bottomEdge + objectScale.y;
+    }
     void Update()
     {
-        Vector3 objectScale = gameObject.transform.localScale;
+        objectScale = gameObject.transform.localScale;
         float halfX = objectScale.x / 2.0f;
         float halfY = objectScale.y / 2.0f;
         float halfZ = objectScale.z / 2.0f;
@@ -119,10 +127,7 @@ public class FurnitureMovement : MonoBehaviour {
                 
                 movedItem = true;
                 gameObject.transform.position = newPosition; 
-                gameObject.GetComponent<FurnitureState>().leftEdge = gameObject.transform.position.x - ((objectScale.x - 1.0f) * 0.5f);
-                gameObject.GetComponent<FurnitureState>().rightEdge = gameObject.GetComponent<FurnitureState>().leftEdge + objectScale.x;
-                gameObject.GetComponent<FurnitureState>().bottomEdge = gameObject.transform.position.y - ((objectScale.y - 1.0f) * 0.5f);
-                gameObject.GetComponent<FurnitureState>().topEdge = gameObject.GetComponent<FurnitureState>().bottomEdge + objectScale.y;
+                calculateEdges();
             }
         }   
         

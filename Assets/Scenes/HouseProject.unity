@@ -3041,6 +3041,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tiles: []
+  furnitureObjects: []
+  furnitureSelected: []
 --- !u!1 &141272898
 GameObject:
   m_ObjectHideFlags: 0
@@ -35160,7 +35162,7 @@ GameObject:
   - component: {fileID: 1558570123}
   m_Layer: 5
   m_Name: Example UI
-  m_TagString: Untagged
+  m_TagString: ExampleUI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
