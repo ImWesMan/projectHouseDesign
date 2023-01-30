@@ -21,7 +21,7 @@ public class FurnitureState : MonoBehaviour
     public float furnitureWidth;
     public float temp;
     public float furnitureHeight;
-    GameObject gridManager;
+    GameObject GridManager;
     public GameObject furnitureUI;
     GameObject furnUI;
     public float leftEdge;
@@ -33,10 +33,10 @@ public class FurnitureState : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        gridManager = GameObject.FindWithTag("GridManager");
-        gridWidth = gridManager.GetComponent<GridCreation>().width;
+        GridManager = GameObject.FindWithTag("GridManager");
+        gridWidth = GridManager.GetComponent<GridCreation>().width;
         Debug.Log(gridWidth);
-        gridHeight = gridManager.GetComponent<GridCreation>().height;
+        gridHeight = GridManager.GetComponent<GridCreation>().height;
         Debug.Log(gridHeight);
         isFirstCreated = true;
         furnitureWidth = gameObject.transform.localScale.x;
@@ -58,7 +58,7 @@ public class FurnitureState : MonoBehaviour
     public void deletePressed()
     {
         int[] oldEdges = new int[4] {(int) leftEdge, (int) rightEdge, (int) bottomEdge, (int) topEdge};
-        gridManager.GetComponent<TileManager>().furniturePlaced(oldEdges, new int [4] {-1, 0, 0, 0});
+        GridManager.GetComponent<TileManager>().furniturePlaced(oldEdges, new int [4] {-1, 0, 0, 0});
 
         Destroy(gameObject);
         Destroy(furnUI);
@@ -66,37 +66,85 @@ public class FurnitureState : MonoBehaviour
     public void rotatePressed()
     {
         int[] oldEdges = new int[4] {(int) leftEdge, (int) rightEdge, (int) bottomEdge, (int) topEdge};
+        
         temp = furnitureWidth;
         furnitureWidth = furnitureHeight;
         furnitureHeight = temp;
-        gameObject.transform.localScale = new Vector3(furnitureWidth, furnitureHeight, 1);
-        TMP_Text text = (TMP_Text) gameObject.transform.GetChild(0).GetComponent<TMP_Text>();
+        
+        Vector3 newScale = new Vector3(furnitureWidth, furnitureHeight, 1);
+        //gameObject.transform.localScale = new Vector3(furnitureWidth, furnitureHeight, 1);
 
-        if(furnitureHeight >= furnitureWidth) {
-             text.transform.localScale = new Vector3((furnitureHeight/furnitureWidth) * (1.0f/furnitureHeight), 1.0f * (1.0f/furnitureHeight), 1.0f);
-        }
-        else if(furnitureWidth > furnitureHeight) {
-             text.transform.localScale = new Vector3(1.0f * (1.0f/furnitureWidth), (furnitureWidth/furnitureHeight) * (1.0f/furnitureWidth), 1.0f);
-        }
-
+        Vector3 newPosition = new Vector3();
         if(furnitureHeight % 2 != 0 && furnitureWidth % 2 != 0)
         {
-        
+            ;
         }
         else if(furnitureHeight != furnitureWidth && rotated == false)
         {
-        gameObject.transform.position = new Vector3(gameObject.transform.position.x + 0.5f, gameObject.transform.position.y + 0.5f, gameObject.transform.position.z);
+            newPosition = new Vector3(gameObject.transform.position.x + 0.5f, gameObject.transform.position.y + 0.5f, gameObject.transform.position.z);
         }
         else if(furnitureHeight != furnitureWidth && rotated == true)
         {
-        gameObject.transform.position = new Vector3(gameObject.transform.position.x - 0.5f, gameObject.transform.position.y - 0.5f, gameObject.transform.position.z);
+            newPosition = new Vector3(gameObject.transform.position.x - 0.5f, gameObject.transform.position.y - 0.5f, gameObject.transform.position.z);
         }
 
-        //gameObject.GetComponent<FurnitureMovement>().calculateEdges();
-        rotated = !rotated;
-        rotatedF = true;
-        gameObject.GetComponent<FurnitureMovement>().oldEdges = oldEdges;
-        gameObject.GetComponent<FurnitureMovement>().calculateEdges();
+        int newLeftEdge = (int) (newPosition.x - ((newScale.x - 1.0f) * 0.5f));
+        int newRightEdge = (int) (newLeftEdge + newScale.x);
+        int newBottomEdge = (int) (newPosition.y - ((newScale.y - 1.0f) * 0.5f));
+        int newTopEdge = (int) (newBottomEdge + newScale.y);
+
+        Debug.Log("left: " + newLeftEdge);
+        Debug.Log("right: " + newRightEdge);
+        Debug.Log("bottom: " + newBottomEdge);
+        Debug.Log("top: " + newTopEdge);
+
+        
+        bool valid = true;
+        if(newLeftEdge < 0 || newRightEdge > GridManager.GetComponent<TileManager>().occupied.GetLength(0) || 
+            newBottomEdge < 0 || newTopEdge > GridManager.GetComponent<TileManager>().occupied.GetLength(1)) {
+
+            valid = false;
+        }
+        else { 
+            
+            for(int i = newLeftEdge; i < newRightEdge; i++) {
+                for(int j = newBottomEdge; j < newTopEdge; j++) {
+                    if(GridManager.GetComponent<TileManager>().occupied[i,j] == 1) {
+                                
+                        if(!(i >= oldEdges[0] && i < oldEdges[1] && j >= oldEdges[2] && j < oldEdges[3])) {
+                            valid = false;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        
+        if(valid) {
+            gameObject.transform.position = newPosition;
+            gameObject.transform.localScale = newScale;
+
+            TMP_Text text = (TMP_Text) gameObject.transform.GetChild(0).GetComponent<TMP_Text>();
+
+        
+            if(furnitureHeight >= furnitureWidth) {
+                text.transform.localScale = new Vector3((furnitureHeight/furnitureWidth) * (1.0f/furnitureHeight), 1.0f * (1.0f/furnitureHeight), 1.0f);
+            }
+            else if(furnitureWidth > furnitureHeight) {
+                text.transform.localScale = new Vector3(1.0f * (1.0f/furnitureWidth), (furnitureWidth/furnitureHeight) * (1.0f/furnitureWidth), 1.0f);
+            }
+
+            rotated = !rotated;
+            rotatedF = true;
+            gameObject.GetComponent<FurnitureMovement>().oldEdges = oldEdges;
+            gameObject.GetComponent<FurnitureMovement>().calculateEdges(); 
+        }
+        else {
+            gameObject.GetComponent<SpriteRenderer>().color = Color.red;
+            temp = furnitureWidth;
+            furnitureWidth = furnitureHeight;
+            furnitureHeight = temp;
+        }
         
     }
     // Update is called once per frame
