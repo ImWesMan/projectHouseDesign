@@ -9,6 +9,8 @@ public class FurnitureMovement : MonoBehaviour {
     private bool creationMode;
     public bool movedItem = false;
     public GameObject GridManager;
+    private int[] oldEdges =  new int[4];
+    private int[] newEdges = new int[4];
     Vector3 oldPos;
     Vector3 objectScale;
     public void Start() {
@@ -97,6 +99,12 @@ public class FurnitureMovement : MonoBehaviour {
                 isDragging = true;
                 screenPoint = Camera.main.WorldToScreenPoint(gameObject.transform.position);
                 offset = gameObject.transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z));
+
+                oldEdges[0] = (int) gameObject.GetComponent<FurnitureState>().leftEdge;
+                oldEdges[1] = (int) gameObject.GetComponent<FurnitureState>().rightEdge;
+                oldEdges[2] = (int) gameObject.GetComponent<FurnitureState>().bottomEdge;
+                oldEdges[3] = (int) gameObject.GetComponent<FurnitureState>().topEdge;
+
             }
         }   
                 
@@ -128,6 +136,10 @@ public class FurnitureMovement : MonoBehaviour {
                 movedItem = true;
                 gameObject.transform.position = newPosition; 
                 calculateEdges();
+                newEdges[0] = (int) gameObject.GetComponent<FurnitureState>().leftEdge;
+                newEdges[1] = (int) gameObject.GetComponent<FurnitureState>().rightEdge;
+                newEdges[2] = (int) gameObject.GetComponent<FurnitureState>().bottomEdge;
+                newEdges[3] = (int) gameObject.GetComponent<FurnitureState>().topEdge;
             }
         }   
         
@@ -145,7 +157,10 @@ public class FurnitureMovement : MonoBehaviour {
                     Select();
                 }
             }
-            GridManager.GetComponent<TileManager>().furniturePlaced();
+
+            if(cameraController.GetComponent<CameraController>().moved == false && movedItem == true) {
+                GridManager.GetComponent<TileManager>().furniturePlaced(oldEdges, newEdges);
+            }
             cameraController.GetComponent<CameraController>().isDraggable = true;
             //cameraController.GetComponent<CameraController>().moved = false;
             gameObject.GetComponent<FurnitureState>().isMoving = false;

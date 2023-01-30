@@ -7,32 +7,38 @@ public class TileManager : MonoBehaviour
     public GameObject[] tiles;
     public GameObject[] furnitureObjects;
     public GameObject[] furnitureSelected;
-    public void fillTileArray()
-    {
-        tiles = GameObject.FindGameObjectsWithTag("Tile");
-    }
+    public int[,] occupied;
 
     // Update is called once per frame
-    public void furniturePlaced()
+   public void furniturePlaced(int[] oldEdges, int[] newEdges) 
     {
-        furnitureObjects = GameObject.FindGameObjectsWithTag("Furniture");
-        furnitureSelected = GameObject.FindGameObjectsWithTag("SelectedFurniture");
-        furnitureObjects = furnitureObjects.Concat(furnitureSelected).ToArray();
-        Debug.Log("Furniture Placed");
-        foreach (GameObject tile in tiles)
-        {
-        tile.GetComponent<Tile>().isOccupied = false;
-        foreach(GameObject furniture in furnitureObjects)
-        {
-        //NEEDS TO BE MODIFIED TO WORK FOR ODD FURNITURE PIECES.
-        if((tile.transform.position.x >= furniture.GetComponent<FurnitureState>().leftEdge && tile.transform.position.x < furniture.GetComponent<FurnitureState>().rightEdge) &&
-        (tile.transform.position.y >= furniture.GetComponent<FurnitureState>().bottomEdge && tile.transform.position.y < furniture.GetComponent<FurnitureState>().topEdge))
-        {
-            Debug.Log("Tile Triggered as occupied");
-            tile.GetComponent<Tile>().isOccupied = true;
+        //edges[0] = leftEdge
+        //edges[1] = rightEdge
+        //edges[2] = bottomEdge
+        //edges[3] = topEdge
+
+        for(int i = oldEdges[0]; i < oldEdges[1]; i++) {
+            for(int j = oldEdges[2]; j < oldEdges[3]; j++) {
+                occupied[i,j] = 0;
+            }
         }
-        }  
+
+        if(!(newEdges[0] < 0 || newEdges[1] > occupied.GetLength(0) || newEdges[2] < 0 || newEdges[3] > occupied.GetLength(1))) {
+
+            for(int i = newEdges[0]; i < newEdges[1]; i++) {
+                for(int j = newEdges[2]; j < newEdges[3]; j++) {
+                    occupied[i,j] = 1;
+                }
+            }
         }
-        
+
+        string res = "\n";
+        for(int i = occupied.GetLength(0) - 1; i >= 0; i--) {
+            for(int j = 0; j < occupied.GetLength(1); j++) {
+                res = res + occupied[j,i];
+            }
+            Debug.Log(res);
+            res = "\n";
+        }
     }
 }

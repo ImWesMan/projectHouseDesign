@@ -43,7 +43,7 @@ public class GridCreation : MonoBehaviour
         startPos = camera.transform.position;
         startZoom = camera.orthographicSize;
      
-
+        gameObject.GetComponent<TileManager>().occupied = new int[(int) width,(int) height];
    }
 
    public void resetGrid() {
