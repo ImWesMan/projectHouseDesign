@@ -37,7 +37,7 @@ public class GridCreation : MonoBehaviour
     
         float cameraHeight = 2.0f * camera.orthographicSize;
         float cameraWidth = cameraHeight * camera.aspect;
-        cam.transform.position = new Vector3(width/2.0f + cameraWidth/7.5f , height/1.85f - 0.5f, -10);
+        cam.transform.position = new Vector3(width/2.0f + cameraWidth/8.0f , height/1.85f - 0.5f, -10);
         camera.backgroundColor = new Color(0.75f, 0.75f, 0.75f, 1.0f);
 
         startPos = camera.transform.position;
