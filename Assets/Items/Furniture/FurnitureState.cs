@@ -29,6 +29,7 @@ public class FurnitureState : MonoBehaviour
     public float bottomEdge;
     public float topEdge;
     public bool rotated = false;
+    public bool rotatedF = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -56,11 +57,15 @@ public class FurnitureState : MonoBehaviour
     
     public void deletePressed()
     {
+        int[] oldEdges = new int[4] {(int) leftEdge, (int) rightEdge, (int) bottomEdge, (int) topEdge};
+        gridManager.GetComponent<TileManager>().furniturePlaced(oldEdges, new int [4] {-1, 0, 0, 0});
+
         Destroy(gameObject);
         Destroy(furnUI);
     }
     public void rotatePressed()
     {
+        int[] oldEdges = new int[4] {(int) leftEdge, (int) rightEdge, (int) bottomEdge, (int) topEdge};
         temp = furnitureWidth;
         furnitureWidth = furnitureHeight;
         furnitureHeight = temp;
@@ -87,8 +92,11 @@ public class FurnitureState : MonoBehaviour
         gameObject.transform.position = new Vector3(gameObject.transform.position.x - 0.5f, gameObject.transform.position.y - 0.5f, gameObject.transform.position.z);
         }
 
-        gameObject.GetComponent<FurnitureMovement>().calculateEdges();
+        //gameObject.GetComponent<FurnitureMovement>().calculateEdges();
         rotated = !rotated;
+        rotatedF = true;
+        gameObject.GetComponent<FurnitureMovement>().oldEdges = oldEdges;
+        gameObject.GetComponent<FurnitureMovement>().calculateEdges();
         
     }
     // Update is called once per frame

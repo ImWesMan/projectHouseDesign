@@ -8,6 +8,7 @@ public class TileManager : MonoBehaviour
     public GameObject[] furnitureObjects;
     public GameObject[] furnitureSelected;
     public int[,] occupied;
+    public bool movedItem = false;
 
     // Update is called once per frame
    public void furniturePlaced(int[] oldEdges, int[] newEdges) 
@@ -32,6 +33,7 @@ public class TileManager : MonoBehaviour
             }
         }
 
+        Debug.Log("-------------------------------------");
         string res = "\n";
         for(int i = occupied.GetLength(0) - 1; i >= 0; i--) {
             for(int j = 0; j < occupied.GetLength(1); j++) {
