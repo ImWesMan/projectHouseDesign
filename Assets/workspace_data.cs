@@ -9,7 +9,6 @@ public class workspace_data : MonoBehaviour
     List<string> workspace_names_list;
 
     public void Start() {
-        // start with a size 1 array, default will be added.
         workspace_names_list = new List<string>();
     }
 
@@ -23,7 +22,12 @@ public class workspace_data : MonoBehaviour
         Debug.Log(current_name);
     }
 
+    public void AddNewWorkspaceTab(){
+        
+    }
+
     public void SetNamesToWorkspace(){
+        // for now, just placing the first one in
         string item = workspace_names_list[0];
         GameObject.Find("Default Workspace").GetComponentInChildren<TMP_Text>().text = item;
 
