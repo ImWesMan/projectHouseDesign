@@ -106,6 +106,10 @@ public class FurnitureMovement : MonoBehaviour {
             mousePos.z > objectPos.z - halfZ && 
             mousePos.z < objectPos.z + halfZ) {
 
+                if(gameObject.GetComponent<FurnitureState>().isFirstCreated == true) {
+                    Select();
+                }
+
                 cameraController.GetComponent<CameraController>().isDraggable = false;
                 //need this line for some reason
                 gameObject.GetComponent<FurnitureState>().isFirstCreated = false;
