@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 public class FurnitureState : MonoBehaviour
-{
+{   
+    [SerializeField]
+    GameObject prefab;
     [SerializeField]
     public bool isSelected = true;
     [SerializeField]
@@ -65,6 +67,11 @@ public class FurnitureState : MonoBehaviour
     }
     public void rotatePressed()
     {
+
+        if((int) furnitureWidth == (int) furnitureHeight) {
+            return;
+        }
+
         int[] oldEdges = new int[4] {(int) leftEdge, (int) rightEdge, (int) bottomEdge, (int) topEdge};
         
         temp = furnitureWidth;
@@ -77,7 +84,7 @@ public class FurnitureState : MonoBehaviour
         Vector3 newPosition = new Vector3();
         if(furnitureHeight % 2 != 0 && furnitureWidth % 2 != 0)
         {
-            ;
+            newPosition = gameObject.transform.position;
         }
         else if(furnitureHeight != furnitureWidth && rotated == false)
         {
@@ -144,6 +151,16 @@ public class FurnitureState : MonoBehaviour
             temp = furnitureWidth;
             furnitureWidth = furnitureHeight;
             furnitureHeight = temp;
+
+            var furniture = Instantiate(prefab, Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.identity);
+            furniture.GetComponent<SpriteRenderer>().color = Color.red;
+            furniture.GetComponent<Renderer>().sortingOrder = 2;
+            TMP_Text text = (TMP_Text) furniture.transform.GetChild(0).GetComponent<TMP_Text>();
+            text.text = "";
+            furniture.transform.localScale = newScale;
+            furniture.transform.position = newPosition;
+            furniture.tag = "Trash";
+            Destroy(furniture, 0.1f);
         }
         
     }
@@ -153,7 +170,9 @@ public class FurnitureState : MonoBehaviour
 
         if(isMoving == false && isSelected == true)
         {
-            gameObject.GetComponent<SpriteRenderer>().color = Color.cyan;
+            if(gameObject.tag != "Trash") {
+                gameObject.GetComponent<SpriteRenderer>().color = Color.cyan;
+            }
         }
         if(isMoving == true || isFirstCreated == true)
         {
@@ -165,7 +184,9 @@ public class FurnitureState : MonoBehaviour
                 gameObject.GetComponent<SpriteRenderer>().color = Color.red;
             }
            else {
-            gameObject.GetComponent<SpriteRenderer>().color = Color.green;
+                if(gameObject.tag != "Trash") {
+                    gameObject.GetComponent<SpriteRenderer>().color = Color.green;
+                }
            }
 
            

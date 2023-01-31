@@ -15,6 +15,7 @@ TagManager:
   - SelectedFurniture
   - Tile
   - ExampleUI
+  - Trash
   layers:
   - Default
   - TransparentFX

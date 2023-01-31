@@ -76,7 +76,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
@@ -103,6 +103,8 @@ MonoBehaviour:
   cameraController: {fileID: 0}
   isDragging: 0
   movedItem: 0
+  GridManager: {fileID: 0}
+  oldEdges: 00000000000000000000000000000000
 --- !u!114 &-7943166023215851879
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -115,6 +117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c50e6db65466ae409a8ed19d0c5a01f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  prefab: {fileID: 3622895612015199202}
   isSelected: 0
   isMoving: 1
   isFirstCreated: 1
@@ -122,8 +125,15 @@ MonoBehaviour:
   posx: 0
   posy: 0
   furnitureWidth: 0
+  temp: 0
   furnitureHeight: 0
   furnitureUI: {fileID: 4059119836376928500, guid: 8b4a7ebff741ad44db3c0a60f77a9478, type: 3}
+  leftEdge: 0
+  rightEdge: 0
+  bottomEdge: 0
+  topEdge: 0
+  rotated: 0
+  rotatedF: 0
 --- !u!61 &4834811088409241134
 BoxCollider2D:
   m_ObjectHideFlags: 0

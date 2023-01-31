@@ -331,7 +331,7 @@ GameObject:
   - component: {fileID: 2775652408347697658}
   - component: {fileID: 2137966514247188236}
   m_Layer: 6
-  m_Name: Button
+  m_Name: RotateButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

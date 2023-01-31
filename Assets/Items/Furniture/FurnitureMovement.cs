@@ -218,7 +218,7 @@ public class FurnitureMovement : MonoBehaviour {
             }
             
 
-            if((cameraController.GetComponent<CameraController>().moved == false && movedItem == true) || gameObject.GetComponent<FurnitureState>().rotatedF == true) {
+            if(movedItem == true || gameObject.GetComponent<FurnitureState>().rotatedF == true) {
                 newEdges[0] = (int) gameObject.GetComponent<FurnitureState>().leftEdge;
                 newEdges[1] = (int) gameObject.GetComponent<FurnitureState>().rightEdge;
                 newEdges[2] = (int) gameObject.GetComponent<FurnitureState>().bottomEdge;
