@@ -160,7 +160,10 @@ public class FurnitureState : MonoBehaviour
             furniture.transform.localScale = newScale;
             furniture.transform.position = newPosition;
             furniture.tag = "Trash";
+            
             Destroy(furniture, 0.1f);
+            
+            
         }
         
     }
