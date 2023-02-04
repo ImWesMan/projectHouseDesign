@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 public class GridCreation : MonoBehaviour
 {
    public float width, height;
@@ -10,11 +11,16 @@ public class GridCreation : MonoBehaviour
     [SerializeField] Transform cam;
     [SerializeField] Camera camera;
     [SerializeField] Tile tilePrefab;
-
+    public string name;
+    [SerializeField]
+    public GameObject workspace;
     private Vector3 startPos;
     private float startZoom;
 
-   public void GenerateGrid()
+
+
+
+   public void GenerateGrid(GameObject parent)
    {
         height = heightSlide.value;
         width = widthSlide.value;
@@ -22,8 +28,9 @@ public class GridCreation : MonoBehaviour
         Debug.Log(width);
         for(int x = 0; x < width; x++) { 
             for(int y = 0; y<height; y++) { 
-        
+                
                 var spawnedTile = Instantiate(tilePrefab, new Vector3(x,y), Quaternion.identity);
+                spawnedTile.transform.SetParent(parent.transform);
                 spawnedTile.name = $"Tile ({x},{y})";
 
                 var isOffset = (x + y) % 2 == 1;

@@ -16,6 +16,9 @@ TagManager:
   - Tile
   - ExampleUI
   - Trash
+  - WorkspaceManager
+  - ProjectNameInput
+  - WorkspaceButtons
   layers:
   - Default
   - TransparentFX
