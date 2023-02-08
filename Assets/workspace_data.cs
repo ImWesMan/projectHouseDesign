@@ -23,11 +23,14 @@ public class workspace_data : MonoBehaviour
        GameObject.FindWithTag("GridManager").GetComponent<GridCreation>().GenerateGrid(created);
        AddNewWorkspaceToList(created);
        currentWorkspace = created;
+       created.GetComponent<workspaceInfo>().width =  GameObject.FindWithTag("GridManager").GetComponent<GridCreation>().width;
+       created.GetComponent<workspaceInfo>().length= GameObject.FindWithTag("GridManager").GetComponent<GridCreation>().height;
        GameObject newbutton = Instantiate(workspaceButton);
        newbutton.transform.SetParent(buttonHolder.transform);
        newbutton.transform.GetChild(0).GetComponent<TMP_Text>().text = created.name;
        newbutton.transform.localScale = new Vector3(1.0f,1.0f,1.0f);
        newbutton.transform.localPosition = new Vector3(newbutton.transform.localPosition.x,newbutton.transform.localPosition.y,0.0f);
+       newbutton.GetComponent<Image>().color = Color.green;
        newbutton.GetComponent<Button>().onClick.AddListener(() => SwitchWorkspace(newbutton));
        AddNewWorkspaceToButtonList(newbutton);
 
@@ -36,6 +39,13 @@ public class workspace_data : MonoBehaviour
              if(theworkspace != created)
              {
                 theworkspace.SetActive(false);
+             }   
+        }
+        foreach (GameObject button in buttons)
+        {
+             if(button != newbutton)
+             {
+                button.GetComponent<Image>().color = Color.white;
              }   
         }
     }
@@ -65,6 +75,23 @@ public class workspace_data : MonoBehaviour
                 theworkspace.SetActive(false);
              }   
         }
+         foreach (GameObject button in buttons)
+        {
+             if(button != theButton)
+             {
+                button.GetComponent<Image>().color = Color.white;
+             }
+        }
+        theButton.GetComponent<Image>().color = Color.green;  
+        currentWorkspace = switchToWorkspace;
+        GameObject.FindWithTag("GridManager").GetComponent<GridCreation>().width = switchToWorkspace.GetComponent<workspaceInfo>().width;
+        GameObject.FindWithTag("GridManager").GetComponent<GridCreation>().height = switchToWorkspace.GetComponent<workspaceInfo>().length;
+        GameObject.FindWithTag("GridManager").GetComponent<GridCreation>().resetGrid();
+    }
+
+    public void addWorkspaceClicked()
+    {
+        currentWorkspace.SetActive(false);
     }
 
 }
