@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 684358080661252513}
   - component: {fileID: 2931859623326365048}
+  - component: {fileID: -8814900538199804214}
   m_Layer: 0
   m_Name: workspace
   m_TagString: Untagged
@@ -44,3 +45,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f39b70150319020478f0fab4e9cd1bd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  width: 0
+  length: 0
+--- !u!114 &-8814900538199804214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3678301879485489249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05ba2843c9772c74ebcd978501b4b48f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  floorList: {fileID: 6233773508888271727, guid: 6f42ead9adea6cd4792955dab638c382, type: 3}
+  floorListParent: {fileID: 6324806916209839039, guid: 16fe22e2631f6c6458a78143009a5d7b, type: 3}

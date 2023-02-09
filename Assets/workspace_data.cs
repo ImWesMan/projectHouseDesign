@@ -25,6 +25,9 @@ public class workspace_data : MonoBehaviour
        currentWorkspace = created;
        created.GetComponent<workspaceInfo>().width =  GameObject.FindWithTag("GridManager").GetComponent<GridCreation>().width;
        created.GetComponent<workspaceInfo>().length= GameObject.FindWithTag("GridManager").GetComponent<GridCreation>().height;
+
+    //    created.GetComponent<workspaceFloors>().instantiateFloorList();
+
        GameObject newbutton = Instantiate(workspaceButton);
        newbutton.transform.SetParent(buttonHolder.transform);
        newbutton.transform.GetChild(0).GetComponent<TMP_Text>().text = created.name;
