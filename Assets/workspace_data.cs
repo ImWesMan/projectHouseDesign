@@ -15,6 +15,11 @@ public class workspace_data : MonoBehaviour
     public GameObject workspaceButton;
     [SerializeField]
     public GameObject buttonHolder;
+    public GameObject floor;
+    public GameObject floorList;
+    public List<GameObject> floorListList;
+    public GameObject ExampleUI;
+    public GameObject currentFloorList;
       public void workspaceCreated()
     {
        name = GameObject.FindWithTag("ProjectNameInput").GetComponent<TMP_InputField>().text;
@@ -25,18 +30,23 @@ public class workspace_data : MonoBehaviour
        currentWorkspace = created;
        created.GetComponent<workspaceInfo>().width =  GameObject.FindWithTag("GridManager").GetComponent<GridCreation>().width;
        created.GetComponent<workspaceInfo>().length= GameObject.FindWithTag("GridManager").GetComponent<GridCreation>().height;
-
     //    created.GetComponent<workspaceFloors>().instantiateFloorList();
 
        GameObject newbutton = Instantiate(workspaceButton);
        newbutton.transform.SetParent(buttonHolder.transform);
        newbutton.transform.GetChild(0).GetComponent<TMP_Text>().text = created.name;
+       newbutton.transform.GetChild(1).GetComponent<TMP_Text>().text = created.GetComponent<workspaceInfo>().width + " x " +  created.GetComponent<workspaceInfo>().length;
        newbutton.transform.localScale = new Vector3(1.0f,1.0f,1.0f);
        newbutton.transform.localPosition = new Vector3(newbutton.transform.localPosition.x,newbutton.transform.localPosition.y,0.0f);
        newbutton.GetComponent<Image>().color = Color.green;
        newbutton.GetComponent<Button>().onClick.AddListener(() => SwitchWorkspace(newbutton));
        AddNewWorkspaceToButtonList(newbutton);
-
+       GameObject theFloorList = Instantiate(floorList, ExampleUI.transform);
+       theFloorList.name = "theFloorList" + name;
+       AddNewFloorListToFloorListList(theFloorList);
+       currentFloorList = theFloorList;
+       created.GetComponent<workspaceInfo>().addFloor();
+       currentWorkspace = created;
         foreach (GameObject theworkspace in workspaces)
         {
              if(theworkspace != created)
@@ -51,6 +61,13 @@ public class workspace_data : MonoBehaviour
                 button.GetComponent<Image>().color = Color.white;
              }   
         }
+          foreach (GameObject floorList in floorListList)
+        {
+             if(floorList != theFloorList)
+             {
+                floorList.SetActive(false);
+             }   
+        }
     }
 
 
@@ -63,19 +80,31 @@ public class workspace_data : MonoBehaviour
     {
         buttons.Add(thebutton);
     }
-
+    public void AddNewFloorListToFloorListList(GameObject theFloor)
+    {
+        floorListList.Add(theFloor);
+    }
     public void SwitchWorkspace(GameObject theButton)
     {
         currentWorkspace.SetActive(false);
         int position = buttons.IndexOf(theButton);
         GameObject switchToWorkspace = workspaces[position];
+        GameObject switchToFloorList = floorListList[position];
         switchToWorkspace.SetActive(true);
+        switchToFloorList.SetActive(true);
 
          foreach (GameObject theworkspace in workspaces)
         {
              if(theworkspace != switchToWorkspace)
              {
                 theworkspace.SetActive(false);
+             }   
+        }
+         foreach (GameObject thefloorlist in floorListList)
+        {
+             if(thefloorlist != switchToFloorList)
+             {
+                thefloorlist.SetActive(false);
              }   
         }
          foreach (GameObject button in buttons)
@@ -87,6 +116,7 @@ public class workspace_data : MonoBehaviour
         }
         theButton.GetComponent<Image>().color = Color.green;  
         currentWorkspace = switchToWorkspace;
+        currentFloorList = switchToFloorList;
         GameObject.FindWithTag("GridManager").GetComponent<GridCreation>().width = switchToWorkspace.GetComponent<workspaceInfo>().width;
         GameObject.FindWithTag("GridManager").GetComponent<GridCreation>().height = switchToWorkspace.GetComponent<workspaceInfo>().length;
         GameObject.FindWithTag("GridManager").GetComponent<GridCreation>().resetGrid();
@@ -97,4 +127,8 @@ public class workspace_data : MonoBehaviour
         currentWorkspace.SetActive(false);
     }
 
+    public void addFloorClicked()
+    {
+        currentWorkspace.GetComponent<workspaceInfo>().addFloor();
+    }
 }

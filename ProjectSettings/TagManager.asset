@@ -19,6 +19,7 @@ TagManager:
   - WorkspaceManager
   - ProjectNameInput
   - WorkspaceButtons
+  - FloorListParent
   layers:
   - Default
   - TransparentFX

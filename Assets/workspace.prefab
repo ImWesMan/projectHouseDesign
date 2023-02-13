@@ -47,6 +47,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   width: 0
   length: 0
+  floors: []
+  FloorCount: 1
+  floorButton: {fileID: 9122054291837889618, guid: 0c6b6649989d89a47974350f92c2f229, type: 3}
+  currentFloor: {fileID: 0}
+  floor: {fileID: 2678628493740887051, guid: 95df9f6f11692bc469632dadaf81ba93, type: 3}
 --- !u!114 &-8814900538199804214
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59,5 +64,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05ba2843c9772c74ebcd978501b4b48f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floorList: {fileID: 6233773508888271727, guid: 6f42ead9adea6cd4792955dab638c382, type: 3}
+  floorList: {fileID: 1658206061965504947, guid: 2f8f6982afb3d8c4e9fb7b7745187778, type: 3}
   floorListParent: {fileID: 6324806916209839039, guid: 16fe22e2631f6c6458a78143009a5d7b, type: 3}
