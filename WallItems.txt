@@ -15,6 +15,13 @@ Bedrooms
 - laundry room
 - bathroom
 
+Extra
+- Pantry
+- Utility room
+- Master closet
+- Bedroom closet
+- Linen closet
+
 Garage
 - 2 car
 - 3 car
