@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class workspaceInfo : MonoBehaviour
 {
     public float width;
-    public float length;
+    public float height;
     public List<GameObject> floors;
     public int FloorCount = 1;
     public GameObject floorButton;
@@ -31,14 +31,24 @@ public class workspaceInfo : MonoBehaviour
         newFloorButton.transform.GetChild(0).GetComponent<TMP_Text>().text = "Floor " + FloorCount;
         addToFloorButtonList(newFloorButton);
         GameObject newFloor = Instantiate(floor, GameObject.FindWithTag("WorkspaceManager").GetComponent<workspace_data>().currentWorkspace.transform);
+        newFloor.GetComponent<TileManager>().createOccupied(newFloor.transform.parent.gameObject.GetComponent<workspaceInfo>().width, newFloor.transform.parent.gameObject.GetComponent<workspaceInfo>().height);
         addToFloorList(newFloor);
         currentFloor = newFloor;
         newFloor.name = "Floor " + FloorCount;
         FloorCount++;
+        
+        GameObject selected = GameObject.FindWithTag("SelectedFurniture");
+        if(selected != null) {
+            selected.GetComponent<FurnitureState>().destoryFurnitureUI();
+            selected.GetComponent<FurnitureState>().isSelected = false;
+            selected.tag = "Furniture";
+        }
+        
         foreach (GameObject thefloor in floors)
         {
              if(thefloor != newFloor)
              {
+                
                 thefloor.SetActive(false);
                
              }   
@@ -55,7 +65,15 @@ public class workspaceInfo : MonoBehaviour
 
     public void SwitchFloor(GameObject floor)
     {
+        GameObject selected = GameObject.FindWithTag("SelectedFurniture");
+        if(selected != null) {
+            selected.GetComponent<FurnitureState>().destoryFurnitureUI();
+            selected.GetComponent<FurnitureState>().isSelected = false;
+            selected.tag = "Furniture";
+        }
+        
         currentFloor.SetActive(false);
+        
         int position = floorButtons.IndexOf(floor);
         GameObject switchToFloor = floors[position];
          foreach (GameObject thefloor in floors)

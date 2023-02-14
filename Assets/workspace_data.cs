@@ -29,13 +29,13 @@ public class workspace_data : MonoBehaviour
        AddNewWorkspaceToList(created);
        currentWorkspace = created;
        created.GetComponent<workspaceInfo>().width =  GameObject.FindWithTag("GridManager").GetComponent<GridCreation>().width;
-       created.GetComponent<workspaceInfo>().length= GameObject.FindWithTag("GridManager").GetComponent<GridCreation>().height;
+       created.GetComponent<workspaceInfo>().height= GameObject.FindWithTag("GridManager").GetComponent<GridCreation>().height;
     //    created.GetComponent<workspaceFloors>().instantiateFloorList();
 
        GameObject newbutton = Instantiate(workspaceButton);
        newbutton.transform.SetParent(buttonHolder.transform);
        newbutton.transform.GetChild(0).GetComponent<TMP_Text>().text = created.name;
-       newbutton.transform.GetChild(1).GetComponent<TMP_Text>().text = created.GetComponent<workspaceInfo>().width + " x " +  created.GetComponent<workspaceInfo>().length;
+       newbutton.transform.GetChild(1).GetComponent<TMP_Text>().text = created.GetComponent<workspaceInfo>().width + " x " +  created.GetComponent<workspaceInfo>().height;
        newbutton.transform.localScale = new Vector3(1.0f,1.0f,1.0f);
        newbutton.transform.localPosition = new Vector3(newbutton.transform.localPosition.x,newbutton.transform.localPosition.y,0.0f);
        newbutton.GetComponent<Image>().color = Color.green;
@@ -118,7 +118,7 @@ public class workspace_data : MonoBehaviour
         currentWorkspace = switchToWorkspace;
         currentFloorList = switchToFloorList;
         GameObject.FindWithTag("GridManager").GetComponent<GridCreation>().width = switchToWorkspace.GetComponent<workspaceInfo>().width;
-        GameObject.FindWithTag("GridManager").GetComponent<GridCreation>().height = switchToWorkspace.GetComponent<workspaceInfo>().length;
+        GameObject.FindWithTag("GridManager").GetComponent<GridCreation>().height = switchToWorkspace.GetComponent<workspaceInfo>().height;
         GameObject.FindWithTag("GridManager").GetComponent<GridCreation>().resetGrid();
     }
 

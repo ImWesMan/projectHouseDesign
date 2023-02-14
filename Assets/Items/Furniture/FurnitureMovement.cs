@@ -9,6 +9,7 @@ public class FurnitureMovement : MonoBehaviour {
     private bool creationMode;
     public bool movedItem = false;
     public GameObject GridManager;
+    public GameObject parent;
     public int[] oldEdges =  new int[4];
     private int[] newEdges = new int[4];
     int newLeftEdge;
@@ -20,6 +21,7 @@ public class FurnitureMovement : MonoBehaviour {
     public void Start() {
         cameraController =  GameObject.FindWithTag("CameraController");
         GridManager = GameObject.FindWithTag("GridManager");
+        parent = gameObject.transform.parent.gameObject;
     }         
 
     void Select() {
@@ -27,7 +29,7 @@ public class FurnitureMovement : MonoBehaviour {
         gameObject.GetComponent<FurnitureState>().isSelected = true;
         GameObject selected = GameObject.FindWithTag("SelectedFurniture");
         
-        Debug.Log(GameObject.ReferenceEquals(selected, gameObject));
+        //Debug.Log(GameObject.ReferenceEquals(selected, gameObject));
         if(!GameObject.ReferenceEquals(selected, gameObject)) {
             if(selected != null) {
                 selected.GetComponent<FurnitureState>().destoryFurnitureUI();
@@ -78,7 +80,7 @@ public class FurnitureMovement : MonoBehaviour {
                 mousePos.z < objectPos.z + halfZ)
             {
                 
-                if(cameraController.GetComponent<CameraController>().moved == false && GridManager.GetComponent<TileManager>().movedItem == false) {
+                if(cameraController.GetComponent<CameraController>().moved == false && parent.GetComponent<TileManager>().movedItem == false) {
                     
                     if(gameObject.GetComponent<FurnitureState>().isSelected == false) {
                         Select();
@@ -147,9 +149,9 @@ public class FurnitureMovement : MonoBehaviour {
             }
             
             Vector3 newPosition = new Vector3(Mathf.Floor(cursorPosition.x) + offsetX, Mathf.Floor(cursorPosition.y) + offsetY, Mathf.Floor(cursorPosition.z) + offsetZ);
-            //Debug.Log("new: " + newPosition);
-            //Debug.Log("old: " + gameObject.transform.position);
-            if(!(gameObject.transform.position.x == newPosition.x && gameObject.transform.position.y == newPosition.y)) {
+            Debug.Log("new: " + newPosition);
+            Debug.Log("old: " + gameObject.transform.position);
+            if(gameObject.transform.position.x != newPosition.x || gameObject.transform.position.y != newPosition.y) {
                 
                 newLeftEdge = (int) (newPosition.x - ((objectScale.x - 1.0f) * 0.5f));
                 newRightEdge = (int) (newLeftEdge + objectScale.x);
@@ -157,8 +159,10 @@ public class FurnitureMovement : MonoBehaviour {
                 newTopEdge = (int) (newBottomEdge + objectScale.y);
 
         
+                Debug.Log("After new edge");
+                Debug.Log("------------------");
                 movedItem = true;
-                GridManager.GetComponent<TileManager>().movedItem = true;
+                parent.GetComponent<TileManager>().movedItem = true;
 
                 gameObject.transform.position = newPosition; 
                 
@@ -179,11 +183,11 @@ public class FurnitureMovement : MonoBehaviour {
 
             if(movedItem == true) {
                 
-                if(!(newLeftEdge < 0 || newRightEdge > GridManager.GetComponent<TileManager>().occupied.GetLength(0) || newBottomEdge < 0 || newTopEdge > GridManager.GetComponent<TileManager>().occupied.GetLength(1))) {
+                if(!(newLeftEdge < 0 || newRightEdge > parent.GetComponent<TileManager>().occupied.GetLength(0) || newBottomEdge < 0 || newTopEdge > parent.GetComponent<TileManager>().occupied.GetLength(1))) {
                     bool tilesOccupied = false;
                     for(int i = newLeftEdge; i < newRightEdge; i++) {
                         for(int j = newBottomEdge; j < newTopEdge; j++) {
-                            if(GridManager.GetComponent<TileManager>().occupied[i,j] == 1) {
+                            if(parent.GetComponent<TileManager>().occupied[i,j] == 1) {
                                 
                                 if(!(i >= oldEdges[0] && i < oldEdges[1] && j >= oldEdges[2] && j < oldEdges[3])) {
                                     tilesOccupied = true;
@@ -213,8 +217,8 @@ public class FurnitureMovement : MonoBehaviour {
                 }
                 */
 
-                Debug.Log("entered 3");
-                Select();
+                //Debug.Log("entered 3");
+                //Select();
             }
             
 
@@ -223,7 +227,7 @@ public class FurnitureMovement : MonoBehaviour {
                 newEdges[1] = (int) gameObject.GetComponent<FurnitureState>().rightEdge;
                 newEdges[2] = (int) gameObject.GetComponent<FurnitureState>().bottomEdge;
                 newEdges[3] = (int) gameObject.GetComponent<FurnitureState>().topEdge;
-                GridManager.GetComponent<TileManager>().furniturePlaced(oldEdges, newEdges);
+                parent.GetComponent<TileManager>().furniturePlaced(oldEdges, newEdges);
             }
             cameraController.GetComponent<CameraController>().isDraggable = true;
             gameObject.GetComponent<FurnitureState>().isMoving = false;
@@ -239,7 +243,7 @@ public class FurnitureMovement : MonoBehaviour {
         if(Input.GetMouseButtonUp(0)) {
             cameraController.GetComponent<CameraController>().moved = false;
             gameObject.GetComponent<FurnitureState>().rotatedF = false;
-            GridManager.GetComponent<TileManager>().movedItem = false;
+            parent.GetComponent<TileManager>().movedItem = false;
         }
     }
 }

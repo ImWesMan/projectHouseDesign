@@ -10,8 +10,12 @@ public class TileManager : MonoBehaviour
     public int[,] occupied;
     public bool movedItem = false;
 
-    // Update is called once per frame
-   public void furniturePlaced(int[] oldEdges, int[] newEdges) 
+    public void createOccupied(float width, float height) {
+
+        occupied = new int[(int) width,(int) height];
+    }
+
+    public void furniturePlaced(int[] oldEdges, int[] newEdges) 
     {
         //edges[0] = leftEdge
         //edges[1] = rightEdge
@@ -33,6 +37,7 @@ public class TileManager : MonoBehaviour
             }
         }
 
+        /*
         Debug.Log("-------------------------------------");
         string res = "\n";
         for(int i = occupied.GetLength(1) - 1; i >= 0; i--) {
@@ -41,6 +46,6 @@ public class TileManager : MonoBehaviour
             }
             Debug.Log(res);
             res = "\n";
-        }
+        } */
     }
 }

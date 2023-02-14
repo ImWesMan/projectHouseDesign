@@ -23,7 +23,8 @@ public class FurnitureState : MonoBehaviour
     public float furnitureWidth;
     public float temp;
     public float furnitureHeight;
-    GameObject GridManager;
+    GameObject parent;
+    GameObject workspace;
     public GameObject furnitureUI;
     GameObject furnUI;
     public float leftEdge;
@@ -35,10 +36,11 @@ public class FurnitureState : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GridManager = GameObject.FindWithTag("GridManager");
-        gridWidth = GridManager.GetComponent<GridCreation>().width;
+        parent = gameObject.transform.parent.gameObject;
+        workspace = parent.transform.parent.gameObject;
+        gridWidth = workspace.GetComponent<workspaceInfo>().width;
         Debug.Log(gridWidth);
-        gridHeight = GridManager.GetComponent<GridCreation>().height;
+        gridHeight = workspace.GetComponent<workspaceInfo>().height;
         Debug.Log(gridHeight);
         isFirstCreated = true;
         furnitureWidth = gameObject.transform.localScale.x;
@@ -60,7 +62,7 @@ public class FurnitureState : MonoBehaviour
     public void deletePressed()
     {
         int[] oldEdges = new int[4] {(int) leftEdge, (int) rightEdge, (int) bottomEdge, (int) topEdge};
-        GridManager.GetComponent<TileManager>().furniturePlaced(oldEdges, new int [4] {-1, 0, 0, 0});
+        parent.GetComponent<TileManager>().furniturePlaced(oldEdges, new int [4] {-1, 0, 0, 0});
 
         Destroy(gameObject);
         Destroy(furnUI);
@@ -107,8 +109,8 @@ public class FurnitureState : MonoBehaviour
 
         
         bool valid = true;
-        if(newLeftEdge < 0 || newRightEdge > GridManager.GetComponent<TileManager>().occupied.GetLength(0) || 
-            newBottomEdge < 0 || newTopEdge > GridManager.GetComponent<TileManager>().occupied.GetLength(1)) {
+        if(newLeftEdge < 0 || newRightEdge > parent.GetComponent<TileManager>().occupied.GetLength(0) || 
+            newBottomEdge < 0 || newTopEdge > parent.GetComponent<TileManager>().occupied.GetLength(1)) {
 
             valid = false;
         }
@@ -116,7 +118,7 @@ public class FurnitureState : MonoBehaviour
             
             for(int i = newLeftEdge; i < newRightEdge; i++) {
                 for(int j = newBottomEdge; j < newTopEdge; j++) {
-                    if(GridManager.GetComponent<TileManager>().occupied[i,j] == 1) {
+                    if(parent.GetComponent<TileManager>().occupied[i,j] == 1) {
                                 
                         if(!(i >= oldEdges[0] && i < oldEdges[1] && j >= oldEdges[2] && j < oldEdges[3])) {
                             valid = false;
@@ -152,7 +154,7 @@ public class FurnitureState : MonoBehaviour
             furnitureWidth = furnitureHeight;
             furnitureHeight = temp;
 
-            var furniture = Instantiate(prefab, Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.identity);
+            var furniture = Instantiate(prefab, Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.identity, parent.transform);
             furniture.GetComponent<SpriteRenderer>().color = Color.red;
             furniture.GetComponent<Renderer>().sortingOrder = 2;
             TMP_Text text = (TMP_Text) furniture.transform.GetChild(0).GetComponent<TMP_Text>();
