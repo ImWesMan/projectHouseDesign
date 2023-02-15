@@ -20,6 +20,7 @@ public class workspace_data : MonoBehaviour
     public List<GameObject> floorListList;
     public GameObject ExampleUI;
     public GameObject currentFloorList;
+    public int workspaceCount = 0;
       public void workspaceCreated()
     {
        name = GameObject.FindWithTag("ProjectNameInput").GetComponent<TMP_InputField>().text;
@@ -47,6 +48,7 @@ public class workspace_data : MonoBehaviour
        currentFloorList = theFloorList;
        created.GetComponent<workspaceInfo>().addFloor();
        currentWorkspace = created;
+       workspaceCount++;
         foreach (GameObject theworkspace in workspaces)
         {
              if(theworkspace != created)
@@ -70,6 +72,22 @@ public class workspace_data : MonoBehaviour
         }
     }
 
+    public void workspaceDeleted()
+    {
+        if(workspaceCount >= 1)
+        {
+            int position = workspaces.IndexOf(currentWorkspace);
+
+            Destroy(currentWorkspace);
+            Destroy(currentFloorList);
+            Destroy(buttons[position].gameObject);
+            workspaces.RemoveAt(position);
+            floorListList.RemoveAt(position);
+            buttons.RemoveAt(position);
+            workspaceCount--;
+        }
+    }
+
 
     public void AddNewWorkspaceToList(GameObject workspace)
     {
@@ -86,7 +104,10 @@ public class workspace_data : MonoBehaviour
     }
     public void SwitchWorkspace(GameObject theButton)
     {
+        if(currentWorkspace != null)
+        {
         currentWorkspace.SetActive(false);
+        }
         int position = buttons.IndexOf(theButton);
         GameObject switchToWorkspace = workspaces[position];
         GameObject switchToFloorList = floorListList[position];
@@ -124,7 +145,10 @@ public class workspace_data : MonoBehaviour
 
     public void addWorkspaceClicked()
     {
+        if(workspaceCount >= 1)
+        {
         currentWorkspace.SetActive(false);
+        }
     }
 
     public void addFloorClicked()
