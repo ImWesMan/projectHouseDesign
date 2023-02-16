@@ -74,9 +74,10 @@ public class workspaceInfo : MonoBehaviour
             selected.GetComponent<FurnitureState>().isSelected = false;
             selected.tag = "Furniture";
         }
-        
+        if(currentFloor != null)
+        {
         currentFloor.SetActive(false);
-        
+        }
         int position = floorButtons.IndexOf(floor);
         GameObject switchToFloor = floors[position];
          foreach (GameObject thefloor in floors)
@@ -104,11 +105,12 @@ public class workspaceInfo : MonoBehaviour
         {
             int position = floorButtons.IndexOf(floor);
             Destroy(floorButtons[position].gameObject);
-            Destroy(floor);
+            Destroy(floors[position].gameObject);
             floorButtons.RemoveAt(position);
             floors.RemoveAt(position);
             FloorCount--;
             renameFloors();
+            SwitchFloor(floorButtons[0]);
         }
     }
 
