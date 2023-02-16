@@ -46,12 +46,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   width: 0
-  length: 0
+  height: 0
   floors: []
-  FloorCount: 1
+  FloorCount: 0
   floorButton: {fileID: 9122054291837889618, guid: 0c6b6649989d89a47974350f92c2f229, type: 3}
   currentFloor: {fileID: 0}
   floor: {fileID: 2678628493740887051, guid: 95df9f6f11692bc469632dadaf81ba93, type: 3}
+  floorButtons: []
 --- !u!114 &-8814900538199804214
 MonoBehaviour:
   m_ObjectHideFlags: 0

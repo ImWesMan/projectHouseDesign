@@ -8,7 +8,7 @@ public class workspaceInfo : MonoBehaviour
     public float width;
     public float height;
     public List<GameObject> floors;
-    public int FloorCount = 1;
+    public int FloorCount = 0;
     public GameObject floorButton;
     public GameObject currentFloor;
     public GameObject floor;
@@ -25,8 +25,11 @@ public class workspaceInfo : MonoBehaviour
     }
     public void addFloor()
     {
+         FloorCount++;
         GameObject newFloorButton = Instantiate(floorButton, GameObject.FindWithTag("WorkspaceManager").GetComponent<workspace_data>().currentFloorList.transform.GetChild(0).transform);
+        newFloorButton.transform.SetSiblingIndex(0);
         newFloorButton.GetComponent<Button>().onClick.AddListener(() => SwitchFloor(newFloorButton));
+        newFloorButton.transform.GetChild(1).GetComponent<Button>().onClick.AddListener(() => deleteFloor(newFloorButton));
         newFloorButton.GetComponent<Image>().color = Color.green;
         newFloorButton.transform.GetChild(0).GetComponent<TMP_Text>().text = "Floor " + FloorCount;
         addToFloorButtonList(newFloorButton);
@@ -35,7 +38,7 @@ public class workspaceInfo : MonoBehaviour
         addToFloorList(newFloor);
         currentFloor = newFloor;
         newFloor.name = "Floor " + FloorCount;
-        FloorCount++;
+        
         
         GameObject selected = GameObject.FindWithTag("SelectedFurniture");
         if(selected != null) {
@@ -95,5 +98,34 @@ public class workspaceInfo : MonoBehaviour
         floorButtons[position].GetComponent<Image>().color = Color.green;
     }
 
+    public void deleteFloor(GameObject floor)
+    {
+        if(FloorCount >= 2)
+        {
+            int position = floorButtons.IndexOf(floor);
+            Destroy(floorButtons[position].gameObject);
+            Destroy(floor);
+            floorButtons.RemoveAt(position);
+            floors.RemoveAt(position);
+            FloorCount--;
+            renameFloors();
+        }
+    }
+
+    public void renameFloors()
+    {
+        int counter = 1;
+         foreach (GameObject theButton in floorButtons)
+        {
+            theButton.transform.GetChild(0).GetComponent<TMP_Text>().text = "Floor " + counter;
+            counter++;
+        }
+        counter = 1;
+          foreach (GameObject theFloor in floors)
+        {
+            theFloor.name = "Floor " + counter;
+            counter++;
+        }
+    }
 
 }
