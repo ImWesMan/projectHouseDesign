@@ -45,6 +45,7 @@ public class workspaceInfo : MonoBehaviour
             selected.GetComponent<FurnitureState>().destoryFurnitureUI();
             selected.GetComponent<FurnitureState>().isSelected = false;
             selected.tag = "Furniture";
+            selected.GetComponent<SpriteRenderer>().color = new Color(0,0,0,1);
         }
         
         foreach (GameObject thefloor in floors)
@@ -73,7 +74,9 @@ public class workspaceInfo : MonoBehaviour
             selected.GetComponent<FurnitureState>().destoryFurnitureUI();
             selected.GetComponent<FurnitureState>().isSelected = false;
             selected.tag = "Furniture";
+            selected.GetComponent<SpriteRenderer>().color = new Color(0,0,0,1);
         }
+
         if(currentFloor != null)
         {
         currentFloor.SetActive(false);

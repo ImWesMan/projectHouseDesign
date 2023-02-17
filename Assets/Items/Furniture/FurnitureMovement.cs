@@ -149,8 +149,7 @@ public class FurnitureMovement : MonoBehaviour {
             }
             
             Vector3 newPosition = new Vector3(Mathf.Floor(cursorPosition.x) + offsetX, Mathf.Floor(cursorPosition.y) + offsetY, Mathf.Floor(cursorPosition.z) + offsetZ);
-            Debug.Log("new: " + newPosition);
-            Debug.Log("old: " + gameObject.transform.position);
+            
             if(gameObject.transform.position.x != newPosition.x || gameObject.transform.position.y != newPosition.y) {
                 
                 newLeftEdge = (int) (newPosition.x - ((objectScale.x - 1.0f) * 0.5f));
@@ -158,9 +157,6 @@ public class FurnitureMovement : MonoBehaviour {
                 newBottomEdge = (int) (newPosition.y - ((objectScale.y - 1.0f) * 0.5f));
                 newTopEdge = (int) (newBottomEdge + objectScale.y);
 
-        
-                Debug.Log("After new edge");
-                Debug.Log("------------------");
                 movedItem = true;
                 parent.GetComponent<TileManager>().movedItem = true;
 

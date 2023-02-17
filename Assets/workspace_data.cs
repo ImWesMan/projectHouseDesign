@@ -49,6 +49,7 @@ public class workspace_data : MonoBehaviour
        created.GetComponent<workspaceInfo>().addFloor();
        currentWorkspace = created;
        workspaceCount++;
+        
         foreach (GameObject theworkspace in workspaces)
         {
              if(theworkspace != created)
@@ -104,6 +105,16 @@ public class workspace_data : MonoBehaviour
     }
     public void SwitchWorkspace(GameObject theButton)
     {
+        
+        GameObject selected = GameObject.FindWithTag("SelectedFurniture");
+        if(selected != null) {
+            selected.GetComponent<FurnitureState>().destoryFurnitureUI();
+            selected.GetComponent<FurnitureState>().isSelected = false;
+            selected.tag = "Furniture";
+            selected.GetComponent<SpriteRenderer>().color = new Color(0,0,0,1);
+        }
+        
+        
         if(currentWorkspace != null)
         {
         currentWorkspace.SetActive(false);
@@ -145,6 +156,15 @@ public class workspace_data : MonoBehaviour
 
     public void addWorkspaceClicked()
     {
+        
+        GameObject selected = GameObject.FindWithTag("SelectedFurniture");
+        if(selected != null) {
+            selected.GetComponent<FurnitureState>().destoryFurnitureUI();
+            selected.GetComponent<FurnitureState>().isSelected = false;
+            selected.tag = "Furniture";
+            selected.GetComponent<SpriteRenderer>().color = new Color(0,0,0,1);
+        }
+        
         if(workspaceCount >= 1)
         {
         currentWorkspace.SetActive(false);
