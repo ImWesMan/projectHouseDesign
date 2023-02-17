@@ -179,7 +179,7 @@ public class FurnitureState : MonoBehaviour
                 gameObject.GetComponent<SpriteRenderer>().color = Color.cyan;
             }
         }
-        if(isMoving == true || isFirstCreated == true)
+        if(gameObject.GetComponent<FurnitureMovement>().movedItem == true || isFirstCreated == true)
         {
            posx = gameObject.transform.position.x;
             posy = gameObject.transform.position.y;
