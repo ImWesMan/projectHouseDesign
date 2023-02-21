@@ -21,6 +21,7 @@ TagManager:
   - WorkspaceButtons
   - FloorListParent
   - Categories
+  - Wall
   layers:
   - Default
   - TransparentFX
