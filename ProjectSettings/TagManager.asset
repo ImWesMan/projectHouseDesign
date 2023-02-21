@@ -22,6 +22,7 @@ TagManager:
   - FloorListParent
   - Categories
   - Wall
+  - WallManager
   layers:
   - Default
   - TransparentFX

@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class WallCreation : MonoBehaviour {
+public class WallManager : MonoBehaviour {
 
     [SerializeField] GameObject WorkspaceManager;
     [SerializeField] GameObject PointPrefab;
     [SerializeField] GameObject LinePrefab;
+    [SerializeField] GameObject CameraController;
     public bool creating;
+    public bool deleting;
     private bool intitialize = true;
 
     private bool first = true;
@@ -25,6 +27,10 @@ public class WallCreation : MonoBehaviour {
         creating = true;
     }
 
+    public void setDeleting() {
+        deleting = true;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -35,13 +41,16 @@ public class WallCreation : MonoBehaviour {
     void Update()
     {
         GameObject workspace = WorkspaceManager.GetComponent<workspace_data>().currentWorkspace;
+        
         if(creating) {
-
+            
+            Transform parentFloor = workspace.GetComponent<workspaceInfo>().currentFloor.transform;
+            
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             if(first) {
                 if(!firstCreated) {
                     if(mousePos.x > -0.5f && mousePos.x < workspace.GetComponent<workspaceInfo>().width - 0.5f && mousePos.y > -0.5f && mousePos.y < workspace.GetComponent<workspaceInfo>().height - 0.5f) {
-                        firstPoint = Instantiate(PointPrefab, new Vector3(Mathf.Ceil(mousePos.x) - 0.5f, Mathf.Ceil(mousePos.y) - 0.5f, 1.0f), Quaternion.identity);
+                        firstPoint = Instantiate(PointPrefab, new Vector3(Mathf.Ceil(mousePos.x) - 0.5f, Mathf.Ceil(mousePos.y) - 0.5f, 1.0f), Quaternion.identity, parentFloor);
                         firstCreated = true;
                     }
                 }
@@ -54,7 +63,7 @@ public class WallCreation : MonoBehaviour {
                         Destroy(firstPoint);
                         firstCreated = false;
                     }
-                    if(Input.GetMouseButtonDown(0)) {
+                    if(Input.GetMouseButtonUp(0) && CameraController.GetComponent<CameraController>().moved == false) {
                         firstSet = true;
                         first = false;
                         second = true;
@@ -65,7 +74,7 @@ public class WallCreation : MonoBehaviour {
             else if(second) {
                 if(!secondCreated) {
                    if(mousePos.x > -0.5f && mousePos.x < workspace.GetComponent<workspaceInfo>().width - 0.5f && mousePos.y > -0.5f && mousePos.y < workspace.GetComponent<workspaceInfo>().height - 0.5f) {
-                        secondPoint = Instantiate(PointPrefab, new Vector3(Mathf.Ceil(mousePos.x) - 0.5f, Mathf.Ceil(mousePos.y) - 0.5f, 1.0f), Quaternion.identity);
+                        secondPoint = Instantiate(PointPrefab, new Vector3(Mathf.Ceil(mousePos.x) - 0.5f, Mathf.Ceil(mousePos.y) - 0.5f, 1.0f), Quaternion.identity, parentFloor);
                         if(firstPoint.transform.position.x == secondPoint.transform.position.x ^ firstPoint.transform.position.y == secondPoint.transform.position.y) {
                             secondPoint.GetComponent<SpriteRenderer>().color = new Color(0.60f, 1.0f, 0.60f, 1.0f);
                         }
@@ -92,7 +101,7 @@ public class WallCreation : MonoBehaviour {
                         Destroy(secondPoint);
                         secondCreated = false;
                     }
-                    if(Input.GetMouseButtonDown(0)) {
+                    if(Input.GetMouseButtonUp(0) && CameraController.GetComponent<CameraController>().moved == false) {
                         if(firstPoint.transform.position.x == secondPoint.transform.position.x ^ firstPoint.transform.position.y == secondPoint.transform.position.y) {
                             secondSet = true;
                             second = false;
@@ -102,7 +111,8 @@ public class WallCreation : MonoBehaviour {
             }
              
             if(firstSet && secondSet) {
-                GameObject line = Instantiate(LinePrefab, new Vector3(0.0f, 0.0f, 0.0f), Quaternion.identity);
+                GameObject line = Instantiate(LinePrefab, new Vector3(0.0f, 0.0f, 0.0f), Quaternion.identity, parentFloor);
+                line.name = "Wall";
                 line.GetComponent<LineRenderer>().startWidth = 0.15f;
                 line.GetComponent<LineRenderer>().endWidth = 0.15f;
                 line.GetComponent<LineRenderer>().positionCount = 2;
@@ -124,6 +134,13 @@ public class WallCreation : MonoBehaviour {
                 firstSet = false;
                 secondSet = false;
             }
+        }
+    }
+
+    void LateUpdate() {
+
+        if(Input.GetMouseButtonUp(0)) {
+            CameraController.GetComponent<CameraController>().moved = false;
         }
     }
 }

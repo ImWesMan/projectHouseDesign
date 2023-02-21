@@ -22,7 +22,20 @@ public class workspace_data : MonoBehaviour
     public GameObject currentFloorList;
     public int workspaceCount = 0;
     public GameObject WorkspaceCreateUI;
-      public void workspaceCreated()
+      
+    public void Deselect() {
+
+        GameObject selected = GameObject.FindWithTag("SelectedFurniture");
+        if(selected != null) {
+            selected.GetComponent<FurnitureState>().destoryFurnitureUI();
+            selected.GetComponent<FurnitureState>().isSelected = false;
+            selected.tag = "Furniture";
+            selected.GetComponent<SpriteRenderer>().color = new Color(0,0,0,1);
+        }
+    }
+      
+      
+    public void workspaceCreated()
     {
        name = GameObject.FindWithTag("ProjectNameInput").GetComponent<TMP_InputField>().text;
        GameObject created = Instantiate(workspace, GameObject.FindWithTag("WorkspaceManager").transform);

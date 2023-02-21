@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6307087182043312050}
   - component: {fileID: 6307087182043312051}
+  - component: {fileID: 4837178883536461136}
   m_Layer: 0
   m_Name: WallLine
   m_TagString: Wall
@@ -72,7 +73,7 @@ LineRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: -1
   m_Positions:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 1}
@@ -131,3 +132,15 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
+--- !u!114 &4837178883536461136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6307087182043312048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be4c5b5f4e753104993ccee85d2bd8a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

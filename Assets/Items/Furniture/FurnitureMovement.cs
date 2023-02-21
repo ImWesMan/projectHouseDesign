@@ -16,6 +16,7 @@ public class FurnitureMovement : MonoBehaviour {
     int newRightEdge;
     int newBottomEdge;
     int newTopEdge;
+    public bool firstFrameCreated = true;
 
     Vector3 oldPosition;
     public void Start() {
@@ -97,9 +98,9 @@ public class FurnitureMovement : MonoBehaviour {
             }
         }
 
-        if((Input.GetMouseButtonDown(0) && gameObject.GetComponent<FurnitureState>().isSelected) 
+        if((Input.GetMouseButtonDown(0) && gameObject.GetComponent<FurnitureState>().isSelected)
         
-        || gameObject.GetComponent<FurnitureState>().isFirstCreated == true) {
+        || firstFrameCreated == true) {
 
             if(mousePos.x > objectPos.x - halfX && 
             mousePos.x < objectPos.x + halfX &&
@@ -114,7 +115,7 @@ public class FurnitureMovement : MonoBehaviour {
 
                 cameraController.GetComponent<CameraController>().isDraggable = false;
                 //need this line for some reason
-                gameObject.GetComponent<FurnitureState>().isFirstCreated = false;
+                firstFrameCreated = false;
                 isDragging = true;
                 screenPoint = Camera.main.WorldToScreenPoint(gameObject.transform.position);
                 offset = gameObject.transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z));
@@ -194,8 +195,13 @@ public class FurnitureMovement : MonoBehaviour {
                     }
 
                     if(tilesOccupied) {
-                        gameObject.transform.position = oldPosition;
-                        calculateEdges();
+                        if(gameObject.GetComponent<FurnitureState>().isFirstCreated == true) {
+                            Destroy(gameObject);
+                        }
+                        else {
+                            gameObject.transform.position = oldPosition;
+                            calculateEdges();
+                        }
                     }
 
                 }
