@@ -44,6 +44,9 @@ public class CameraController : MonoBehaviour
     {
         if(isDraggable == true)
         {
+        if(Input.GetMouseButtonDown(0)) {
+            oldPos = Camera.main.transform.position;
+        }
         if(Input.GetMouseButton(0))
         {
             Difference = (Camera.main.ScreenToWorldPoint(Input.mousePosition)) - Camera.main.transform.position;
@@ -59,10 +62,10 @@ public class CameraController : MonoBehaviour
         }
         if(drag)
         {
-            Vector3 oldPos = Camera.main.transform.position;
+            //Vector3 oldPos = Camera.main.transform.position;
             Camera.main.transform.position = Origin - Difference;
 
-            if(Mathf.Abs(Camera.main.transform.position.x - oldPos.x) > 0.05f || Mathf.Abs(Camera.main.transform.position.y - oldPos.y) > 0.05f) {
+            if(Mathf.Abs(Camera.main.transform.position.x - oldPos.x) > 0.10f || Mathf.Abs(Camera.main.transform.position.y - oldPos.y) > 0.10f) {
                 moved = true;
             }
             

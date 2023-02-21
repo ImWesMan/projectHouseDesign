@@ -37,7 +37,7 @@ public class TileManager : MonoBehaviour
             }
         }
 
-        /*
+        
         Debug.Log("-------------------------------------");
         string res = "\n";
         for(int i = occupied.GetLength(1) - 1; i >= 0; i--) {
@@ -46,6 +46,6 @@ public class TileManager : MonoBehaviour
             }
             Debug.Log(res);
             res = "\n";
-        } */
+        } 
     }
 }

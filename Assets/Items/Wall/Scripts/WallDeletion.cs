@@ -31,7 +31,7 @@ public class WallDeletion : MonoBehaviour
 
                     if(Input.GetMouseButtonDown(0)) {
                         Destroy(gameObject);
-                        WallManager.GetComponent<WallManager>().deleting = false;
+                        WallManager.GetComponent<WallManager>().setDeleting();
                     }
                 } 
                 else {
@@ -49,7 +49,7 @@ public class WallDeletion : MonoBehaviour
 
                     if(Input.GetMouseButtonDown(0)) {
                         Destroy(gameObject);
-                        WallManager.GetComponent<WallManager>().deleting = false;
+                        WallManager.GetComponent<WallManager>().setDeleting();
                     }
                 }
                 else {

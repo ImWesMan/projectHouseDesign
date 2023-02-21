@@ -3,6 +3,7 @@ using System.Collections;
 
 public class FurnitureMovement : MonoBehaviour {
     public GameObject cameraController;
+    public GameObject WallManager;
     private Vector3 screenPoint;
     private Vector3 offset;
     public bool isDragging;
@@ -23,6 +24,7 @@ public class FurnitureMovement : MonoBehaviour {
         cameraController =  GameObject.FindWithTag("CameraController");
         GridManager = GameObject.FindWithTag("GridManager");
         parent = gameObject.transform.parent.gameObject;
+        WallManager = GameObject.FindWithTag("WallManager");
     }         
 
     void Select() {

@@ -9,9 +9,14 @@ public class WallManager : MonoBehaviour {
     [SerializeField] GameObject PointPrefab;
     [SerializeField] GameObject LinePrefab;
     [SerializeField] GameObject CameraController;
+
+    [SerializeField] GameObject CreateButton;
+    [SerializeField] GameObject DeleteButton;
+    [SerializeField] GameObject CancelCreate;
+    [SerializeField] GameObject CancelDelete;
+
     public bool creating;
     public bool deleting;
-    private bool intitialize = true;
 
     private bool first = true;
     private bool firstCreated = false;
@@ -22,13 +27,66 @@ public class WallManager : MonoBehaviour {
     private bool secondCreated = false;
     private bool secondSet = false;
     private GameObject secondPoint;
+    public int count = 0;
     
     public void setCreating() {
-        creating = true;
+        
+        if(creating) {
+            turnOffCreating();
+        }
+        else {
+            creating = true;
+        }
     }
 
     public void setDeleting() {
-        deleting = true;
+        
+        if(deleting) {
+            DeleteButton.SetActive(true);
+            CancelDelete.SetActive(false);
+        }
+        else {
+            CancelDelete.SetActive(true);
+            DeleteButton.SetActive(false);
+        }
+        
+        deleting = !deleting;
+    }
+
+    public void turnOffCreating() {
+
+        if(count == 0) {
+            creating = false;
+        }
+        else if(count == 1) {
+            Destroy(firstPoint);
+            firstPoint = null;
+            
+            creating = false;
+            first = true;
+            firstCreated = false;
+            secondCreated = false;
+            firstSet = false;
+            secondSet = false;
+            count = 0;
+        }
+        else if(count == 2) {
+            Destroy(firstPoint);
+            Destroy(secondPoint);
+            firstPoint = null;
+            secondPoint = null;
+
+            creating = false;
+            first = true;
+            firstCreated = false;
+            secondCreated = false;
+            firstSet = false;
+            secondSet = false;
+            count = 0;
+        }
+
+        CreateButton.SetActive(true);
+        CancelCreate.SetActive(false);
     }
 
     // Start is called before the first frame update
@@ -40,6 +98,11 @@ public class WallManager : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        GameObject selected = GameObject.FindWithTag("SelectedFurniture");
+        if(selected != null) {
+            turnOffCreating();
+        }
+        
         GameObject workspace = WorkspaceManager.GetComponent<workspace_data>().currentWorkspace;
         
         if(creating) {
@@ -67,6 +130,7 @@ public class WallManager : MonoBehaviour {
                         firstSet = true;
                         first = false;
                         second = true;
+                        count = 1;
                     }
                 }
                 
@@ -105,6 +169,7 @@ public class WallManager : MonoBehaviour {
                         if(firstPoint.transform.position.x == secondPoint.transform.position.x ^ firstPoint.transform.position.y == secondPoint.transform.position.y) {
                             secondSet = true;
                             second = false;
+                            count = 2;
                         } 
                     }
                 }
@@ -133,6 +198,10 @@ public class WallManager : MonoBehaviour {
                 secondCreated = false;
                 firstSet = false;
                 secondSet = false;
+                count = 0;
+
+                CreateButton.SetActive(true);
+                CancelCreate.SetActive(false);
             }
         }
     }
