@@ -53,7 +53,7 @@ public class workspace_data : MonoBehaviour
        newbutton.transform.GetChild(1).GetComponent<TMP_Text>().text = created.GetComponent<workspaceInfo>().width + " x " +  created.GetComponent<workspaceInfo>().height;
        newbutton.transform.localScale = new Vector3(1.0f,1.0f,1.0f);
        newbutton.transform.localPosition = new Vector3(newbutton.transform.localPosition.x,newbutton.transform.localPosition.y,0.0f);
-       newbutton.GetComponent<Image>().color = new Color(0.65f, 1.0f, 0.65f, 1.0f);
+       newbutton.GetComponent<Image>().color = new Color(0.55f, 1.0f, 0.55f, 1.0f);
        newbutton.GetComponent<Button>().onClick.AddListener(() => SwitchWorkspace(newbutton));
        AddNewWorkspaceToButtonList(newbutton);
        GameObject theFloorList = Instantiate(floorList, ExampleUI.transform);
@@ -183,7 +183,7 @@ public class workspace_data : MonoBehaviour
                 button.GetComponent<Image>().color = Color.white;
              }
         }
-        theButton.GetComponent<Image>().color = new Color(0.65f, 1.0f, 0.65f, 1.0f);
+        theButton.GetComponent<Image>().color = new Color(0.55f, 1.0f, 0.55f, 1.0f);
         currentWorkspace = switchToWorkspace;
         currentFloorList = switchToFloorList;
         GameObject.FindWithTag("GridManager").GetComponent<GridCreation>().width = switchToWorkspace.GetComponent<workspaceInfo>().width;

@@ -34,7 +34,7 @@ public class workspaceInfo : MonoBehaviour
         newFloorButton.transform.SetSiblingIndex(0);
         newFloorButton.GetComponent<Button>().onClick.AddListener(() => SwitchFloor(newFloorButton));
         newFloorButton.transform.GetChild(1).GetComponent<Button>().onClick.AddListener(() => deleteFloor(newFloorButton));
-        newFloorButton.GetComponent<Image>().color = new Color(0.75f, 1.0f, 0.75f, 1.0f);
+        newFloorButton.GetComponent<Image>().color = new Color(0.55f, 1.0f, 0.55f, 1.0f);
         newFloorButton.transform.GetChild(0).GetComponent<TMP_Text>().text = "Floor " + FloorCount;
         addToFloorButtonList(newFloorButton);
         GameObject newFloor = Instantiate(floor, GameObject.FindWithTag("WorkspaceManager").GetComponent<workspace_data>().currentWorkspace.transform);
@@ -103,7 +103,7 @@ public class workspaceInfo : MonoBehaviour
         }
         currentFloor = switchToFloor;
         switchToFloor.SetActive(true);
-        floorButtons[position].GetComponent<Image>().color = new Color(0.75f, 1.0f, 0.75f, 1.0f);
+        floorButtons[position].GetComponent<Image>().color = new Color(0.55f, 1.0f, 0.55f, 1.0f);
     }
 
     public void deleteFloor(GameObject floor)
