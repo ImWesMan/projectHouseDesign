@@ -21,6 +21,10 @@ public class WallCreation : MonoBehaviour {
     private bool secondSet = false;
     private GameObject secondPoint;
     
+    public void setCreating() {
+        creating = true;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -62,6 +66,12 @@ public class WallCreation : MonoBehaviour {
                 if(!secondCreated) {
                    if(mousePos.x > -0.5f && mousePos.x < workspace.GetComponent<workspaceInfo>().width - 0.5f && mousePos.y > -0.5f && mousePos.y < workspace.GetComponent<workspaceInfo>().height - 0.5f) {
                         secondPoint = Instantiate(PointPrefab, new Vector3(Mathf.Ceil(mousePos.x) - 0.5f, Mathf.Ceil(mousePos.y) - 0.5f, 1.0f), Quaternion.identity);
+                        if(firstPoint.transform.position.x == secondPoint.transform.position.x ^ firstPoint.transform.position.y == secondPoint.transform.position.y) {
+                            secondPoint.GetComponent<SpriteRenderer>().color = new Color(0.60f, 1.0f, 0.60f, 1.0f);
+                        }
+                        else {
+                            secondPoint.GetComponent<SpriteRenderer>().color = new Color(1.0f, 0.25f, 0.20f, 1.0f);
+                        }
                         secondCreated = true;
                     } 
                 }
@@ -70,13 +80,23 @@ public class WallCreation : MonoBehaviour {
                     Vector3 cursorPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z);
                     Vector3 cursorPosition = Camera.main.ScreenToWorldPoint(cursorPoint);
                     secondPoint.transform.position = new Vector3(Mathf.Ceil(cursorPosition.x) - 0.5f, Mathf.Ceil(cursorPosition.y) - 0.5f, cursorPosition.z);
+
+                    if(firstPoint.transform.position.x == secondPoint.transform.position.x ^ firstPoint.transform.position.y == secondPoint.transform.position.y) {
+                        secondPoint.GetComponent<SpriteRenderer>().color = new Color(0.60f, 1.0f, 0.60f, 1.0f);
+                    }
+                    else {
+                        secondPoint.GetComponent<SpriteRenderer>().color = new Color(1.0f, 0.25f, 0.20f, 1.0f);
+                    }
+
                     if(!(mousePos.x > -0.5f && mousePos.x < workspace.GetComponent<workspaceInfo>().width - 0.5f && mousePos.y > -0.5f && mousePos.y < workspace.GetComponent<workspaceInfo>().height - 0.5f)) {
                         Destroy(secondPoint);
                         secondCreated = false;
                     }
                     if(Input.GetMouseButtonDown(0)) {
-                        secondSet = true;
-                        second = false;
+                        if(firstPoint.transform.position.x == secondPoint.transform.position.x ^ firstPoint.transform.position.y == secondPoint.transform.position.y) {
+                            secondSet = true;
+                            second = false;
+                        } 
                     }
                 }
             }
