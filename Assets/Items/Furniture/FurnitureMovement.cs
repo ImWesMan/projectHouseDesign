@@ -179,11 +179,11 @@ public class FurnitureMovement : MonoBehaviour {
         if (Input.GetMouseButtonUp(0))
         {
             
-
+            bool tilesOccupied = false;
             if(movedItem == true) {
                 
                 if(!(newLeftEdge < 0 || newRightEdge > parent.GetComponent<TileManager>().occupied.GetLength(0) || newBottomEdge < 0 || newTopEdge > parent.GetComponent<TileManager>().occupied.GetLength(1))) {
-                    bool tilesOccupied = false;
+                    
                     for(int i = newLeftEdge; i < newRightEdge; i++) {
                         for(int j = newBottomEdge; j < newTopEdge; j++) {
                             if(parent.GetComponent<TileManager>().occupied[i,j] == 1) {
@@ -199,13 +199,13 @@ public class FurnitureMovement : MonoBehaviour {
                     if(tilesOccupied) {
                         if(gameObject.GetComponent<FurnitureState>().isFirstCreated == true) {
                             Destroy(gameObject);
+                            gameObject.GetComponent<FurnitureState>().destoryFurnitureUI();
                         }
                         else {
                             gameObject.transform.position = oldPosition;
                             calculateEdges();
                         }
                     }
-
                 }
 
                 /*
@@ -231,7 +231,10 @@ public class FurnitureMovement : MonoBehaviour {
                 newEdges[1] = (int) gameObject.GetComponent<FurnitureState>().rightEdge;
                 newEdges[2] = (int) gameObject.GetComponent<FurnitureState>().bottomEdge;
                 newEdges[3] = (int) gameObject.GetComponent<FurnitureState>().topEdge;
-                parent.GetComponent<TileManager>().furniturePlaced(oldEdges, newEdges);
+
+                if(!(gameObject.GetComponent<FurnitureState>().isFirstCreated == true && tilesOccupied == true)) {
+                    parent.GetComponent<TileManager>().furniturePlaced(oldEdges, newEdges);
+                }
             }
             cameraController.GetComponent<CameraController>().isDraggable = true;
             gameObject.GetComponent<FurnitureState>().isMoving = false;

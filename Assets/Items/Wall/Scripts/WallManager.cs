@@ -37,6 +37,10 @@ public class WallManager : MonoBehaviour {
         else {
             creating = true;
         }
+
+        if(deleting) {
+            setDeleting();
+        }
     }
 
     public void setDeleting() {
@@ -48,6 +52,9 @@ public class WallManager : MonoBehaviour {
         else {
             CancelDelete.SetActive(true);
             DeleteButton.SetActive(false);
+            if(creating) {
+                turnOffCreating();
+            }
         }
         
         deleting = !deleting;
