@@ -2723,7 +2723,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Content: {fileID: 598066381}
-  m_Horizontal: 1
+  m_Horizontal: 0
   m_Vertical: 0
   m_MovementType: 1
   m_Elasticity: 0.1
@@ -25924,30 +25924,6 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: toggleSizeChoice, Assembly-CSharp
         m_MethodName: resetOnLeave
         m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 1558570122}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 242826210}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -54356,6 +54332,10 @@ PrefabInstance:
       propertyPath: workspaceButton
       value: 
       objectReference: {fileID: 6133606565683185689, guid: 82cb038f26ac496409c40eee4f7da310, type: 3}
+    - target: {fileID: 8401193290643296489, guid: c99363a7eb07cf34bae9a2c14def5297, type: 3}
+      propertyPath: WorkspaceCreateUI
+      value: 
+      objectReference: {fileID: 242826210}
     - target: {fileID: 8401193290643296494, guid: c99363a7eb07cf34bae9a2c14def5297, type: 3}
       propertyPath: m_RootOrder
       value: 10

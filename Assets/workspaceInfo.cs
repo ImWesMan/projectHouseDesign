@@ -25,6 +25,10 @@ public class workspaceInfo : MonoBehaviour
     }
     public void addFloor()
     {
+        if(FloorCount >= 5)
+        {
+            return;
+        }
          FloorCount++;
         GameObject newFloorButton = Instantiate(floorButton, GameObject.FindWithTag("WorkspaceManager").GetComponent<workspace_data>().currentFloorList.transform.GetChild(0).transform);
         newFloorButton.transform.SetSiblingIndex(0);
@@ -106,14 +110,33 @@ public class workspaceInfo : MonoBehaviour
     {
         if(FloorCount >= 2)
         {
+            bool deletingCurrent = false;
             int position = floorButtons.IndexOf(floor);
+            if(currentFloor == floors[position].gameObject)
+            {
+                deletingCurrent = true;
+            }
+            if(deletingCurrent)
+            {
+            if(currentFloor == floors[FloorCount - 1].gameObject)
+            {
+            SwitchFloor(floorButtons[position-1]);
+            }
+            else if(currentFloor == floors[0].gameObject)
+            {
+            SwitchFloor(floorButtons[position+1]);
+            }
+            else
+            {
+                SwitchFloor(floorButtons[position - 1]);
+            }
+            }
             Destroy(floorButtons[position].gameObject);
             Destroy(floors[position].gameObject);
             floorButtons.RemoveAt(position);
             floors.RemoveAt(position);
             FloorCount--;
             renameFloors();
-            SwitchFloor(floorButtons[0]);
         }
     }
 

@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 public class CameraController : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -32,7 +33,7 @@ public class CameraController : MonoBehaviour
 
     void Update()
    {
-    if(Input.mousePosition.x > bottomLeftPos.x && Input.mousePosition.x < topRightPos.x && Input.mousePosition.y > bottomLeftPos.y && Input.mousePosition.y < topRightPos.y )
+    if(Input.mousePosition.x > bottomLeftPos.x && Input.mousePosition.x < topRightPos.x && Input.mousePosition.y > bottomLeftPos.y && Input.mousePosition.y < topRightPos.y && EventSystem.current.IsPointerOverGameObject() == false)
     {
     Zoom(Input.GetAxis("Mouse ScrollWheel"));
     Drag();

@@ -21,6 +21,7 @@ public class workspace_data : MonoBehaviour
     public GameObject ExampleUI;
     public GameObject currentFloorList;
     public int workspaceCount = 0;
+    public GameObject WorkspaceCreateUI;
       public void workspaceCreated()
     {
        name = GameObject.FindWithTag("ProjectNameInput").GetComponent<TMP_InputField>().text;
@@ -78,9 +79,32 @@ public class workspace_data : MonoBehaviour
         if(workspaceCount >= 1)
         {
             int position = workspaces.IndexOf(currentWorkspace);
-
-            Destroy(currentWorkspace);
-            Destroy(currentFloorList);
+            if(workspaceCount == 1)
+            {
+                Destroy(workspaces[position].gameObject);
+                Destroy(floorListList[position].gameObject);
+                Destroy(buttons[position].gameObject);
+                workspaces.RemoveAt(position);
+                floorListList.RemoveAt(position);
+                buttons.RemoveAt(position);
+                workspaceCount--;
+                return;
+            }
+            
+            if(currentWorkspace == workspaces[workspaceCount - 1].gameObject)
+            {
+            SwitchWorkspace(buttons[position-1]);
+            }
+            else if(currentWorkspace == workspaces[0].gameObject)
+            {
+            SwitchWorkspace(buttons[position+1]);
+            }
+            else
+            {
+                SwitchWorkspace(buttons[position - 1]);
+            }
+            Destroy(workspaces[position].gameObject);
+            Destroy(floorListList[position].gameObject);
             Destroy(buttons[position].gameObject);
             workspaces.RemoveAt(position);
             floorListList.RemoveAt(position);
@@ -156,7 +180,13 @@ public class workspace_data : MonoBehaviour
 
     public void addWorkspaceClicked()
     {
-        
+        if(workspaceCount >= 8)
+        {
+            Debug.Log("Max workspaces reached");
+            return;
+        }
+        ExampleUI.SetActive(false);
+        WorkspaceCreateUI.SetActive(true);
         GameObject selected = GameObject.FindWithTag("SelectedFurniture");
         if(selected != null) {
             selected.GetComponent<FurnitureState>().destoryFurnitureUI();
@@ -165,7 +195,7 @@ public class workspace_data : MonoBehaviour
             selected.GetComponent<SpriteRenderer>().color = new Color(0,0,0,1);
         }
         
-        if(workspaceCount >= 1)
+        if(workspaceCount >= 1 && currentWorkspace != null)
         {
         currentWorkspace.SetActive(false);
         }
