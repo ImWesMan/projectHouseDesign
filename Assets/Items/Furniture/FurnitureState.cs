@@ -88,6 +88,10 @@ public class FurnitureState : MonoBehaviour
         {
             newPosition = gameObject.transform.position;
         }
+        else if(furnitureHeight % 2 == 0 && furnitureWidth % 2 == 0)
+        {
+            newPosition = gameObject.transform.position;
+        }
         else if(furnitureHeight != furnitureWidth && rotated == false)
         {
             newPosition = new Vector3(gameObject.transform.position.x + 0.5f, gameObject.transform.position.y + 0.5f, gameObject.transform.position.z);
@@ -189,11 +193,32 @@ public class FurnitureState : MonoBehaviour
                 gameObject.GetComponent<SpriteRenderer>().color = Color.red;
             }
            else {
-                if(gameObject.tag != "Trash") {
-                    gameObject.GetComponent<SpriteRenderer>().color = Color.green;
-                }
-           }
+               if(gameObject.tag != "Trash") {
 
+                    bool tilesOccupied = false;
+
+                    for(int i = (int) leftEdge; i < (int) rightEdge; i++) {
+                        for(int j = (int) bottomEdge; j < (int) topEdge; j++) {
+                            if(parent.GetComponent<TileManager>().occupied[i,j] == 1) {
+
+                                if(!(i >= gameObject.GetComponent<FurnitureMovement>().oldEdges[0] && i < gameObject.GetComponent<FurnitureMovement>().oldEdges[1] 
+                                    && j >= gameObject.GetComponent<FurnitureMovement>().oldEdges[2] && j < gameObject.GetComponent<FurnitureMovement>().oldEdges[3])) {
+                                    tilesOccupied = true;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+
+
+                    if(tilesOccupied) {
+                        gameObject.GetComponent<SpriteRenderer>().color = Color.red;
+                    }
+                    else {
+                        gameObject.GetComponent<SpriteRenderer>().color = Color.green;
+                    }
+           }
+           }
            
 
         }

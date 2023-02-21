@@ -22,6 +22,7 @@ public class toggleSizeChoice : MonoBehaviour
     bool enabled = true;
     setState();
     yield return new WaitForSeconds(0.5f);
+    GameObject.FindGameObjectWithTag("Categories").GetComponent<VerticalLayoutGroup>().enabled = false;
    }
     // Start is called before the first frame update
    public void setState()
