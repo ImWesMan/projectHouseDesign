@@ -19,6 +19,7 @@ public class WallManager : MonoBehaviour {
     [SerializeField] GameObject ExportButton;
     [SerializeField] GameObject DeleteWorkspaceButton;
 
+    public bool created;
     public bool creating;
     public bool deleting;
 
@@ -111,6 +112,9 @@ public class WallManager : MonoBehaviour {
 
         CreateButton.SetActive(true);
         CancelCreate.SetActive(false);
+        ResetButton.SetActive(true);
+        ExportButton.SetActive(true);
+        DeleteWorkspaceButton.SetActive(true);
     }
 
     // Start is called before the first frame update
@@ -125,12 +129,16 @@ public class WallManager : MonoBehaviour {
         GameObject selected = GameObject.FindWithTag("SelectedFurniture");
         if(selected != null) {
             turnOffCreating();
+            if(deleting) {
+                setDeleting();
+            }
         }
         
         GameObject workspace = WorkspaceManager.GetComponent<workspace_data>().currentWorkspace;
         
         if(creating) {
             
+            created = true;
             Transform parentFloor = workspace.GetComponent<workspaceInfo>().currentFloor.transform;
             
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -211,6 +219,7 @@ public class WallManager : MonoBehaviour {
                 line.GetComponent<LineRenderer>().SetPosition(0, firstPoint.transform.position); //x,y and z position of the starting point of the line
                 line.GetComponent<LineRenderer>().SetPosition(1, secondPoint.transform.position); //x,y and z position of the end point of the line
 
+                //created = true;
                 setCreating();
             }
         }
@@ -220,6 +229,7 @@ public class WallManager : MonoBehaviour {
 
         if(Input.GetMouseButtonUp(0)) {
             CameraController.GetComponent<CameraController>().moved = false;
+            created = false;
         }
     }
 }

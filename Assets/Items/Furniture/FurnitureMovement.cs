@@ -83,7 +83,8 @@ public class FurnitureMovement : MonoBehaviour {
                 mousePos.z < objectPos.z + halfZ)
             {
                 
-                if(cameraController.GetComponent<CameraController>().moved == false && parent.GetComponent<TileManager>().movedItem == false) {
+                if(cameraController.GetComponent<CameraController>().moved == false && parent.GetComponent<TileManager>().movedItem == false 
+                    && WallManager.GetComponent<WallManager>().created == false) {
                     
                     if(gameObject.GetComponent<FurnitureState>().isSelected == false) {
                         Select();
