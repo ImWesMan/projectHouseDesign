@@ -70,16 +70,12 @@ public class WallManager : MonoBehaviour {
             ResetButton.SetActive(false);
             ExportButton.SetActive(false);
             DeleteWorkspaceButton.SetActive(false);
-
-            if(creating) {
-                turnOffCreating();
-            }
-            else {
-
-            }
         }
         
         deleting = !deleting;
+        if(creating) {
+            turnOffCreating();
+        }
     }
 
     public void turnOffCreating() {
@@ -112,9 +108,12 @@ public class WallManager : MonoBehaviour {
 
         CreateButton.SetActive(true);
         CancelCreate.SetActive(false);
-        ResetButton.SetActive(true);
-        ExportButton.SetActive(true);
-        DeleteWorkspaceButton.SetActive(true);
+        
+        if(!deleting) {
+            ResetButton.SetActive(true);
+            ExportButton.SetActive(true);
+            DeleteWorkspaceButton.SetActive(true);
+        }
     }
 
     // Start is called before the first frame update
