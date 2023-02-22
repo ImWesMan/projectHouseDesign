@@ -31,6 +31,7 @@ public class workspaceInfo : MonoBehaviour
     public void addFloor()
     {
         WallManager.GetComponent<WallManager>().turnOffCreating();
+        WallManager.GetComponent<WallManager>().turnOffDeleting();
         
         if(FloorCount >= 5)
         {
@@ -81,6 +82,7 @@ public class workspaceInfo : MonoBehaviour
     public void SwitchFloor(GameObject floor)
     {
         WallManager.GetComponent<WallManager>().turnOffCreating();
+        WallManager.GetComponent<WallManager>().turnOffDeleting();
         
         GameObject selected = GameObject.FindWithTag("SelectedFurniture");
         if(selected != null) {
@@ -118,6 +120,7 @@ public class workspaceInfo : MonoBehaviour
     public void deleteFloor(GameObject floor)
     {
         WallManager.GetComponent<WallManager>().turnOffCreating();
+        WallManager.GetComponent<WallManager>().turnOffDeleting();
         
         if(FloorCount >= 2)
         {

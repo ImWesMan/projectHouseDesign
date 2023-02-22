@@ -758,10 +758,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd3e0d0224c14394cb362d69f42d74f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvas: {fileID: 1558570125}
-  cam: {fileID: 519420032}
-  width: 0
-  height: 0
 --- !u!114 &41736997
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3745,6 +3741,30 @@ MonoBehaviour:
       - m_Target: {fileID: 1148042669}
         m_TargetAssemblyTypeName: toggleSizeChoice, Assembly-CSharp
         m_MethodName: resetOnLeave
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1536049876}
+        m_TargetAssemblyTypeName: WallManager, Assembly-CSharp
+        m_MethodName: turnOffCreating
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1536049876}
+        m_TargetAssemblyTypeName: WallManager, Assembly-CSharp
+        m_MethodName: turnOffDeleting
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -21859,7 +21879,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 39.775, y: -28.965}
+  m_AnchoredPosition: {x: 39.774994, y: -28.965}
   m_SizeDelta: {x: 59.55, y: 49.54}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1072222678
@@ -45059,9 +45079,61 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1658206061060489151, guid: 2f8f6982afb3d8c4e9fb7b7745187778, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1658206061060489151, guid: 2f8f6982afb3d8c4e9fb7b7745187778, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1658206061060489151, guid: 2f8f6982afb3d8c4e9fb7b7745187778, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1658206061060489151, guid: 2f8f6982afb3d8c4e9fb7b7745187778, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2087170044}
+    - target: {fileID: 1658206061060489151, guid: 2f8f6982afb3d8c4e9fb7b7745187778, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1536049876}
+    - target: {fileID: 1658206061060489151, guid: 2f8f6982afb3d8c4e9fb7b7745187778, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 1536049876}
+    - target: {fileID: 1658206061060489151, guid: 2f8f6982afb3d8c4e9fb7b7745187778, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1658206061060489151, guid: 2f8f6982afb3d8c4e9fb7b7745187778, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1658206061060489151, guid: 2f8f6982afb3d8c4e9fb7b7745187778, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: turnOffCreating
+      objectReference: {fileID: 0}
+    - target: {fileID: 1658206061060489151, guid: 2f8f6982afb3d8c4e9fb7b7745187778, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: turnOffDeleting
+      objectReference: {fileID: 0}
+    - target: {fileID: 1658206061060489151, guid: 2f8f6982afb3d8c4e9fb7b7745187778, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: WallManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1658206061060489151, guid: 2f8f6982afb3d8c4e9fb7b7745187778, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
+      value: WallManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1658206061060489151, guid: 2f8f6982afb3d8c4e9fb7b7745187778, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 1658206061060489151, guid: 2f8f6982afb3d8c4e9fb7b7745187778, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 1658206061965504944, guid: 2f8f6982afb3d8c4e9fb7b7745187778, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

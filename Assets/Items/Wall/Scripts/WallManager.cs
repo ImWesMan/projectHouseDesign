@@ -78,6 +78,16 @@ public class WallManager : MonoBehaviour {
         }
     }
 
+    public void turnOffDeleting() {
+        deleting = false;
+        ResetButton.SetActive(true);
+        ExportButton.SetActive(true);
+        DeleteWorkspaceButton.SetActive(true);
+        DeleteButton.SetActive(true);
+        CancelDelete.SetActive(false);
+
+    }
+
     public void turnOffCreating() {
 
         if(count == 0) {

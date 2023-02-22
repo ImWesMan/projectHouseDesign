@@ -43,6 +43,7 @@ public class workspace_data : MonoBehaviour
     public void workspaceCreated()
     {
        WallManager.GetComponent<WallManager>().turnOffCreating();
+       WallManager.GetComponent<WallManager>().turnOffDeleting();
        
        name = GameObject.FindWithTag("ProjectNameInput").GetComponent<TMP_InputField>().text;
        GameObject created = Instantiate(workspace, GameObject.FindWithTag("WorkspaceManager").transform);
@@ -97,6 +98,7 @@ public class workspace_data : MonoBehaviour
     public void workspaceDeleted()
     {
         WallManager.GetComponent<WallManager>().turnOffCreating();
+        WallManager.GetComponent<WallManager>().turnOffDeleting();
         
         if(workspaceCount >= 1)
         {
@@ -152,6 +154,7 @@ public class workspace_data : MonoBehaviour
     public void SwitchWorkspace(GameObject theButton)
     {
         WallManager.GetComponent<WallManager>().turnOffCreating();
+        WallManager.GetComponent<WallManager>().turnOffDeleting();
 
         GameObject selected = GameObject.FindWithTag("SelectedFurniture");
         if(selected != null) {
