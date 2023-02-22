@@ -22,7 +22,12 @@ public class workspace_data : MonoBehaviour
     public GameObject currentFloorList;
     public int workspaceCount = 0;
     public GameObject WorkspaceCreateUI;
+    private GameObject WallManager;
       
+    void Awake() {
+        WallManager = GameObject.FindWithTag("WallManager");
+    }
+
     public void Deselect() {
 
         GameObject selected = GameObject.FindWithTag("SelectedFurniture");
@@ -37,6 +42,8 @@ public class workspace_data : MonoBehaviour
       
     public void workspaceCreated()
     {
+       WallManager.GetComponent<WallManager>().turnOffCreating();
+       
        name = GameObject.FindWithTag("ProjectNameInput").GetComponent<TMP_InputField>().text;
        GameObject created = Instantiate(workspace, GameObject.FindWithTag("WorkspaceManager").transform);
        created.name = name;
@@ -89,6 +96,8 @@ public class workspace_data : MonoBehaviour
 
     public void workspaceDeleted()
     {
+        WallManager.GetComponent<WallManager>().turnOffCreating();
+        
         if(workspaceCount >= 1)
         {
             int position = workspaces.IndexOf(currentWorkspace);
@@ -142,7 +151,8 @@ public class workspace_data : MonoBehaviour
     }
     public void SwitchWorkspace(GameObject theButton)
     {
-        
+        WallManager.GetComponent<WallManager>().turnOffCreating();
+
         GameObject selected = GameObject.FindWithTag("SelectedFurniture");
         if(selected != null) {
             selected.GetComponent<FurnitureState>().destoryFurnitureUI();

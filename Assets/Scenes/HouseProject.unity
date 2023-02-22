@@ -32555,6 +32555,9 @@ MonoBehaviour:
   DeleteButton: {fileID: 704505047}
   CancelCreate: {fileID: 2128067719}
   CancelDelete: {fileID: 538214673}
+  ResetButton: {fileID: 830733067}
+  ExportButton: {fileID: 253319473}
+  DeleteWorkspaceButton: {fileID: 41736994}
   creating: 0
   deleting: 0
   count: 0
@@ -44721,7 +44724,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1536049876}
         m_TargetAssemblyTypeName: WallManager, Assembly-CSharp
-        m_MethodName: turnOffCreating
+        m_MethodName: setCreating
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

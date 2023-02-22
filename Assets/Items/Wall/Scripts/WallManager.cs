@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.EventSystems;
 
 public class WallManager : MonoBehaviour {
 
@@ -14,6 +14,10 @@ public class WallManager : MonoBehaviour {
     [SerializeField] GameObject DeleteButton;
     [SerializeField] GameObject CancelCreate;
     [SerializeField] GameObject CancelDelete;
+
+    [SerializeField] GameObject ResetButton;
+    [SerializeField] GameObject ExportButton;
+    [SerializeField] GameObject DeleteWorkspaceButton;
 
     public bool creating;
     public bool deleting;
@@ -31,16 +35,23 @@ public class WallManager : MonoBehaviour {
     
     public void setCreating() {
         
-        if(creating) {
-            turnOffCreating();
-        }
-        else {
-            creating = true;
-        }
-
         if(deleting) {
             setDeleting();
         }
+        
+        if(creating) {
+            turnOffCreating();
+            ResetButton.SetActive(true);
+            ExportButton.SetActive(true);
+            DeleteWorkspaceButton.SetActive(true);
+        }
+        else {
+            ResetButton.SetActive(false);
+            ExportButton.SetActive(false);
+            DeleteWorkspaceButton.SetActive(false);
+            creating = true;
+        }
+
     }
 
     public void setDeleting() {
@@ -48,12 +59,22 @@ public class WallManager : MonoBehaviour {
         if(deleting) {
             DeleteButton.SetActive(true);
             CancelDelete.SetActive(false);
+            ResetButton.SetActive(true);
+            ExportButton.SetActive(true);
+            DeleteWorkspaceButton.SetActive(true);
         }
         else {
             CancelDelete.SetActive(true);
             DeleteButton.SetActive(false);
+            ResetButton.SetActive(false);
+            ExportButton.SetActive(false);
+            DeleteWorkspaceButton.SetActive(false);
+
             if(creating) {
                 turnOffCreating();
+            }
+            else {
+
             }
         }
         
@@ -64,12 +85,8 @@ public class WallManager : MonoBehaviour {
 
         if(count == 0) {
             creating = false;
-        }
-        else if(count == 1) {
             Destroy(firstPoint);
             firstPoint = null;
-            
-            creating = false;
             first = true;
             firstCreated = false;
             secondCreated = false;
@@ -77,12 +94,12 @@ public class WallManager : MonoBehaviour {
             secondSet = false;
             count = 0;
         }
-        else if(count == 2) {
+        else if(count >= 1) {
             Destroy(firstPoint);
             Destroy(secondPoint);
             firstPoint = null;
             secondPoint = null;
-
+            
             creating = false;
             first = true;
             firstCreated = false;
@@ -133,7 +150,7 @@ public class WallManager : MonoBehaviour {
                         Destroy(firstPoint);
                         firstCreated = false;
                     }
-                    if(Input.GetMouseButtonUp(0) && CameraController.GetComponent<CameraController>().moved == false) {
+                    if(Input.GetMouseButtonUp(0) && CameraController.GetComponent<CameraController>().moved == false && EventSystem.current.IsPointerOverGameObject() == false) {
                         firstSet = true;
                         first = false;
                         second = true;
@@ -172,7 +189,7 @@ public class WallManager : MonoBehaviour {
                         Destroy(secondPoint);
                         secondCreated = false;
                     }
-                    if(Input.GetMouseButtonUp(0) && CameraController.GetComponent<CameraController>().moved == false) {
+                    if(Input.GetMouseButtonUp(0) && CameraController.GetComponent<CameraController>().moved == false && EventSystem.current.IsPointerOverGameObject() == false) {
                         if(firstPoint.transform.position.x == secondPoint.transform.position.x ^ firstPoint.transform.position.y == secondPoint.transform.position.y) {
                             secondSet = true;
                             second = false;
@@ -194,21 +211,7 @@ public class WallManager : MonoBehaviour {
                 line.GetComponent<LineRenderer>().SetPosition(0, firstPoint.transform.position); //x,y and z position of the starting point of the line
                 line.GetComponent<LineRenderer>().SetPosition(1, secondPoint.transform.position); //x,y and z position of the end point of the line
 
-                Destroy(firstPoint);
-                Destroy(secondPoint);
-                firstPoint = null;
-                secondPoint = null;
-                
-                creating = false;
-                first = true;
-                firstCreated = false;
-                secondCreated = false;
-                firstSet = false;
-                secondSet = false;
-                count = 0;
-
-                CreateButton.SetActive(true);
-                CancelCreate.SetActive(false);
+                setCreating();
             }
         }
     }

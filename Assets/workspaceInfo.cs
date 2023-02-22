@@ -13,7 +13,12 @@ public class workspaceInfo : MonoBehaviour
     public GameObject currentFloor;
     public GameObject floor;
     public List<GameObject> floorButtons;
-    // Start is called before the first frame update
+    private GameObject WallManager;
+    
+    void Awake() {
+        WallManager = GameObject.FindWithTag("WallManager");
+    }
+
     public void addToFloorList(GameObject floor)
     {
         floors.Add(floor); 
@@ -25,6 +30,8 @@ public class workspaceInfo : MonoBehaviour
     }
     public void addFloor()
     {
+        WallManager.GetComponent<WallManager>().turnOffCreating();
+        
         if(FloorCount >= 5)
         {
             return;
@@ -73,6 +80,8 @@ public class workspaceInfo : MonoBehaviour
 
     public void SwitchFloor(GameObject floor)
     {
+        WallManager.GetComponent<WallManager>().turnOffCreating();
+        
         GameObject selected = GameObject.FindWithTag("SelectedFurniture");
         if(selected != null) {
             selected.GetComponent<FurnitureState>().destoryFurnitureUI();
@@ -108,6 +117,8 @@ public class workspaceInfo : MonoBehaviour
 
     public void deleteFloor(GameObject floor)
     {
+        WallManager.GetComponent<WallManager>().turnOffCreating();
+        
         if(FloorCount >= 2)
         {
             bool deletingCurrent = false;
