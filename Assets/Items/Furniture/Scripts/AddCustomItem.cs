@@ -10,41 +10,56 @@ public class AddCustomItem : MonoBehaviour
     [SerializeField] GameObject FurnitureBank;
     [SerializeField] GameObject WallBank;
     [SerializeField] TMP_InputField inputLabel;
-    [SerializeField] TMP_InputField inputWidth;
-    [SerializeField] TMP_InputField inputLength;
+    [SerializeField] TMP_InputField widthInputField;
+    [SerializeField] TMP_InputField lengthInputField;
+
+    public void Start()
+    {
+        widthInputField.onValidateInput += delegate(string input, int charIndex, char addedChar) { return MyValidate(addedChar); };
+        lengthInputField.onValidateInput += delegate(string input, int charIndex, char addedChar) { return MyValidate(addedChar); };
+    }
+
+    private char MyValidate(char charToValidate)
+    {
+        if (!Char.IsDigit(charToValidate))
+        {
+            charToValidate = '\0';
+        }
+        return charToValidate;
+    }
+
     public void addItem() {
         if(FurnitureBank.activeSelf){
             create(FurnitureBank);
         }else if (WallBank.activeSelf){
             create(WallBank);
         }
-        
         clearFields();
-
     }
 
-    public void create(GameObject bank) {
-        String widthText = inputWidth.text;
-        String lengthText = inputLength.text;
+    private void create(GameObject bank) {
+        String width = widthInputField.text;
+        String length = lengthInputField.text;
 
         Transform container = RecursiveFindChild (bank.transform, "Custom Panel");
-        GameObject copy = container.Find("PlaceHolder").gameObject;
 
+        GameObject copy = container.Find("PlaceHolder").gameObject;
         GameObject newObject = Instantiate(copy, container);
+
         newObject.transform.Find("Label").gameObject.GetComponentInChildren<TMP_Text>().SetText(inputLabel.text);
-        string dimensions = "(" + widthText + "x" + lengthText + ")";
+        string dimensions = $"({width}x{length})";
         newObject.transform.Find("Dimensions").gameObject.GetComponentInChildren<TMP_Text>().SetText(dimensions);
         newObject.SetActive(true);
        
     }
 
-    public void clearFields() {
+    private void clearFields() {
         inputLabel.text = null;
-        inputWidth.text = null;
-        inputLength.text = null;
+        widthInputField.text = null;
+        lengthInputField.text = null;
     }
 
-    Transform RecursiveFindChild(Transform parent, string childName) {
+    private Transform RecursiveFindChild(Transform parent, string childName) {
 
         foreach (Transform child in parent) {
             if(child.name == childName) {

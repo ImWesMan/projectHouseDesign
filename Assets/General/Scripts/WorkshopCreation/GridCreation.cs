@@ -19,9 +19,7 @@ public class GridCreation : MonoBehaviour
    {
         height = heightSlide.value;
         width = widthSlide.value;
-
-        // Debug.Log(height);
-        // Debug.Log(width);
+        
         for(int x = 0; x < width; x++) { 
             for(int y = 0; y<height; y++) { 
                 
