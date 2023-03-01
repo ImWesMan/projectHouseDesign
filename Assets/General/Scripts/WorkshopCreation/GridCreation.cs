@@ -9,15 +9,10 @@ public class GridCreation : MonoBehaviour
    public Slider heightSlide;
    public Slider widthSlide;
     [SerializeField] Transform cam;
-    [SerializeField] Camera camera;
+    [SerializeField] new Camera camera;
     [SerializeField] Tile tilePrefab;
-    public string name;
-    [SerializeField]
-    public GameObject workspace;
     private Vector3 startPos;
     private float startZoom;
-
-
 
 
    public void GenerateGrid(GameObject parent)

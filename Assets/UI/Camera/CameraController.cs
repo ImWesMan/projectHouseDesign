@@ -5,7 +5,7 @@ public class CameraController : MonoBehaviour
 {
     // Start is called before the first frame update
     private Vector3 mouseWorldPosStart;
-    public Camera camera;
+    new public Camera camera;
     private float zoomScale = 10.0f;
     private float zoomMin = 5.0f;
     private float zoomMax = 50.0f;
@@ -17,8 +17,6 @@ public class CameraController : MonoBehaviour
     Vector3 bottomLeftPos;
     Vector3 topRightPos;
     Vector3 oldPos;
-    public Slider length;
-    public Slider width;
     public bool isDraggable = true;
     public bool moved;
     // Update is called once per frame
