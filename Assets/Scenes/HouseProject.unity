@@ -33426,9 +33426,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FurnitureBank: {fileID: 723292776}
   WallBank: {fileID: 1970730184}
-  label: {fileID: 1237453501}
-  width: {fileID: 1856932733}
-  length: {fileID: 903230040}
   inputLabel: {fileID: 786081049}
   inputWidth: {fileID: 1856932733}
   inputLength: {fileID: 903230040}

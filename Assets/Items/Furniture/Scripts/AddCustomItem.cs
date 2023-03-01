@@ -9,9 +9,6 @@ public class AddCustomItem : MonoBehaviour
     
     [SerializeField] GameObject FurnitureBank;
     [SerializeField] GameObject WallBank;
-    [SerializeField] TMP_Text label;
-    [SerializeField] public TMP_InputField width;
-    [SerializeField] public TMP_InputField length;
     [SerializeField] TMP_InputField inputLabel;
     [SerializeField] TMP_InputField inputWidth;
     [SerializeField] TMP_InputField inputLength;
@@ -27,16 +24,14 @@ public class AddCustomItem : MonoBehaviour
     }
 
     public void create(GameObject bank) {
-        String widthText = width.text;
-        String lengthText = length.text;
-        Debug.Log("'" + widthText + "'");
-        Debug.Log(lengthText);
+        String widthText = inputWidth.text;
+        String lengthText = inputLength.text;
 
         Transform container = RecursiveFindChild (bank.transform, "Custom Panel");
         GameObject copy = container.Find("PlaceHolder").gameObject;
 
         GameObject newObject = Instantiate(copy, container);
-        newObject.transform.Find("Label").gameObject.GetComponentInChildren<TMP_Text>().SetText(label.text);
+        newObject.transform.Find("Label").gameObject.GetComponentInChildren<TMP_Text>().SetText(inputLabel.text);
         string dimensions = "(" + widthText + "x" + lengthText + ")";
         newObject.transform.Find("Dimensions").gameObject.GetComponentInChildren<TMP_Text>().SetText(dimensions);
         newObject.SetActive(true);

@@ -24,8 +24,8 @@ public class CameraController : MonoBehaviour
         bottomLeftPos = camera.WorldToScreenPoint(bottomLeft.transform.position);
         topRightPos = camera.WorldToScreenPoint(topRight.transform.position);
         
-        Debug.Log(bottomLeftPos);
-        Debug.Log(topRightPos);
+        // Debug.Log(bottomLeftPos);
+        // Debug.Log(topRightPos);
         
     }
 
