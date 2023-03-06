@@ -23,6 +23,8 @@ TagManager:
   - Categories
   - Wall
   - WallManager
+  - Label
+  - Sizes
   layers:
   - Default
   - TransparentFX

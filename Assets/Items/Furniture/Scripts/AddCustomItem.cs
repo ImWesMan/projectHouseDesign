@@ -59,6 +59,14 @@ public class AddCustomItem : MonoBehaviour
         TogglePopUp(false);
     }
 
+    public void Create(String name, String dimensions)
+    {
+        GameObject newObject = Instantiate(placeHolder, CustomFurniturePanel);
+        newObject.transform.Find("Label").gameObject.GetComponentInChildren<TMP_Text>().SetText(name);
+        newObject.transform.Find("Dimensions").gameObject.GetComponentInChildren<TMP_Text>().SetText(dimensions);
+        newObject.SetActive(true); 
+    }
+
     private void ClearFields() {
         InputLabel.text = null;
         WidthInputField.text = null;

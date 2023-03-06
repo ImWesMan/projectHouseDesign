@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 991016272384829092}
   m_Layer: 5
   m_Name: Label
-  m_TagString: Untagged
+  m_TagString: Label
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -148,7 +148,7 @@ GameObject:
   - component: {fileID: 991016272693050434}
   m_Layer: 5
   m_Name: Dimensions
-  m_TagString: Untagged
+  m_TagString: Sizes
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
