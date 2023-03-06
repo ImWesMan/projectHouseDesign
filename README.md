@@ -43,7 +43,4 @@ Restore the grid to its original position.
 Save an image of the current workspace grid to a file, as well as all furniture and walls placed. Note that in the current version, this function will save the current workspace and current floor only.
 
 #### Delete Workspace
-<<<<<<< HEAD
 Delete the current workspace including grid, floors, placed furniture, and placed walls related to the current workspace.
-=======
->>>>>>> beee76a5e3dbe3e5d6801942081d7915adbcf996
