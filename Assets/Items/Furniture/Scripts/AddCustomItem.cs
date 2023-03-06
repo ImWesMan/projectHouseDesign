@@ -10,7 +10,7 @@ public class AddCustomItem : MonoBehaviour
     [SerializeField] TMP_InputField InputLabel;
     [SerializeField] TMP_InputField WidthInputField;
     [SerializeField] TMP_InputField LengthInputField;
-
+    public GameObject placeHolder;
     [SerializeField] Camera MainCamera;
 
     private int _originalCullingMask;
@@ -49,8 +49,7 @@ public class AddCustomItem : MonoBehaviour
         String width = WidthInputField.text;
         String length = LengthInputField.text;
 
-        GameObject copy = CustomFurniturePanel.Find("PlaceHolder").gameObject;
-        GameObject newObject = Instantiate(copy, CustomFurniturePanel);
+        GameObject newObject = Instantiate(placeHolder, CustomFurniturePanel);
 
         newObject.transform.Find("Label").gameObject.GetComponentInChildren<TMP_Text>().SetText(InputLabel.text);
         string dimensions = $"({width}x{length})";
@@ -64,6 +63,12 @@ public class AddCustomItem : MonoBehaviour
         InputLabel.text = null;
         WidthInputField.text = null;
         LengthInputField.text = null;
+    }
+
+
+    public void deleteCustomItem(GameObject triggeringButton)
+    {
+        Destroy(triggeringButton);
     }
 
 }
