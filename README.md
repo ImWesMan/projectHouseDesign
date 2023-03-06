@@ -1,5 +1,4 @@
 # House Designer Project
-<<<<<<< HEAD
 This project is a minimal design tool for house layouts. It is intended to be used to compare and contrast different house footprints with a floor plan, furniture, and walls.
 
 ## Usage
