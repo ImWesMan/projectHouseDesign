@@ -6,13 +6,13 @@ using UnityEngine.UI;
 
 public class CaptureScreenshots : MonoBehaviour
 {
-    public float delayBetweenScreenshots = 0.3f;
-    public Button captureButton;
-    public Transform cam;
+    public float DelayBetweenScreenshots = 0.3f;
+    public Button CaptureButton;
+    public Transform MainCamera;
 
     private void Start()
     {
-        captureButton.onClick.AddListener(TakeScreenshots);
+        CaptureButton.onClick.AddListener(TakeScreenshots);
     }
 
     private void TakeScreenshots()
@@ -36,11 +36,11 @@ public class CaptureScreenshots : MonoBehaviour
             floorScript.currentFloor.SetActive(false);
             floor.SetActive(true);
 
-            yield return new WaitForSeconds(delayBetweenScreenshots); 
+            yield return new WaitForSeconds(DelayBetweenScreenshots); 
             string fileName = $"{workspaceName}_{floor.name}.png";
             ScreenCapture.CaptureScreenshot(fileName);
 
-            yield return new WaitForSeconds(delayBetweenScreenshots);
+            yield return new WaitForSeconds(DelayBetweenScreenshots);
             floor.SetActive(false);
         }
 
@@ -59,12 +59,12 @@ public class CaptureScreenshots : MonoBehaviour
         if(setup){
             // Center camera on floors
             Vector3 gridCenter = new Vector3(gridScript.width / 2.0f, gridScript.height / 2.0f, -10.0f);
-            cam.position = gridCenter;
+            MainCamera.position = gridCenter;
         }
     }
 
     private void DeactivateUI(bool condition){
-        GameObject mask = captureButton.transform.parent.Find("Mask").gameObject;
+        GameObject mask = CaptureButton.transform.parent.Find("Mask").gameObject;
         mask.SetActive(condition);
 
         if(condition){
