@@ -1,6 +1,6 @@
 # House Designer Project
 
-This project is a minimal design tool for house layouts. It is intended to be used to compare and contrast different house footprints with a floor plan, furniture, and walls.
+This project is a minimal design tool for house layouts. It is intended to be used to design house layouts with user-defined walls, furniture, and appliances.
 
 ## Usage
 ### Creating a workspace
