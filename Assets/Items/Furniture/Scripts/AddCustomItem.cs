@@ -6,17 +6,20 @@ using TMPro;
 using System;
 public class AddCustomItem : MonoBehaviour
 {
-    
-    [SerializeField] GameObject FurnitureBank;
-    [SerializeField] GameObject WallBank;
-    [SerializeField] TMP_InputField inputLabel;
-    [SerializeField] TMP_InputField widthInputField;
-    [SerializeField] TMP_InputField lengthInputField;
+    [SerializeField] Transform CustomFurniturePanel;
+    [SerializeField] TMP_InputField InputLabel;
+    [SerializeField] TMP_InputField WidthInputField;
+    [SerializeField] TMP_InputField LengthInputField;
+
+    [SerializeField] Camera MainCamera;
+
+    private int _originalCullingMask;
 
     public void Start()
     {
-        widthInputField.onValidateInput += delegate(string input, int charIndex, char addedChar) { return MyValidate(addedChar); };
-        lengthInputField.onValidateInput += delegate(string input, int charIndex, char addedChar) { return MyValidate(addedChar); };
+        _originalCullingMask = MainCamera.cullingMask;
+        WidthInputField.onValidateInput += delegate(string input, int charIndex, char addedChar) { return MyValidate(addedChar); };
+        LengthInputField.onValidateInput += delegate(string input, int charIndex, char addedChar) { return MyValidate(addedChar); };
     }
 
     private char MyValidate(char charToValidate)
@@ -28,52 +31,39 @@ public class AddCustomItem : MonoBehaviour
         return charToValidate;
     }
 
-    public void addItem() {
-        if(FurnitureBank.activeSelf){
-            create(FurnitureBank);
-        }else if (WallBank.activeSelf){
-            create(WallBank);
+    public void TogglePopUp(bool isDisplayed){
+
+        
+        if(isDisplayed){
+            MainCamera.cullingMask = (1 << LayerMask.NameToLayer("PopUp"));
+        }else{
+            MainCamera.cullingMask = _originalCullingMask;
         }
-        clearFields();
+    }
+    public void AddItem() {
+        Create();
+        ClearFields();
     }
 
-    private void create(GameObject bank) {
-        String width = widthInputField.text;
-        String length = lengthInputField.text;
+    private void Create() {
+        String width = WidthInputField.text;
+        String length = LengthInputField.text;
 
-        Transform container = RecursiveFindChild (bank.transform, "Custom Panel");
+        GameObject copy = CustomFurniturePanel.Find("PlaceHolder").gameObject;
+        GameObject newObject = Instantiate(copy, CustomFurniturePanel);
 
-        GameObject copy = container.Find("PlaceHolder").gameObject;
-        GameObject newObject = Instantiate(copy, container);
-
-        newObject.transform.Find("Label").gameObject.GetComponentInChildren<TMP_Text>().SetText(inputLabel.text);
+        newObject.transform.Find("Label").gameObject.GetComponentInChildren<TMP_Text>().SetText(InputLabel.text);
         string dimensions = $"({width}x{length})";
         newObject.transform.Find("Dimensions").gameObject.GetComponentInChildren<TMP_Text>().SetText(dimensions);
         newObject.SetActive(true);
-       
+
+        TogglePopUp(false);
     }
 
-    private void clearFields() {
-        inputLabel.text = null;
-        widthInputField.text = null;
-        lengthInputField.text = null;
-    }
-
-    private Transform RecursiveFindChild(Transform parent, string childName) {
-
-        foreach (Transform child in parent) {
-            if(child.name == childName) {
-                return child;
-            }
-            else {
-                Transform found = RecursiveFindChild(child, childName);
-                if (found != null) {
-                        return found;
-                }
-            }
-        }
-        
-        return null;
+    private void ClearFields() {
+        InputLabel.text = null;
+        WidthInputField.text = null;
+        LengthInputField.text = null;
     }
 
 }
