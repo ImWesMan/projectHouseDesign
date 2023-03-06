@@ -1,10 +1,8 @@
 # House Designer Project
-
 This project is a minimal design tool for house layouts. It is intended to be used to compare and contrast different house footprints with a floor plan, furniture, and walls.
 
 ## Usage
 ### Creating a workspace
-
 To start, enter a name for your workspace, select the Width and Length, and select Create.
 
 ![](https://github.com/ImWesMan/projectHouseDesign/blob/main/create.gif)
@@ -31,11 +29,18 @@ You can also create your own furniture, with specified dimensions, using the Cus
 ![](https://github.com/ImWesMan/projectHouseDesign/blob/main/custom.gif)
 
 #### Floors
+Each workspace may have up to 5 floors. Floors have the same dimensions of grid, though furniture and walls are unique. Add or delete floors in the bottom left of the workspace.
+
+![](https://github.com/ImWesMan/projectHouseDesign/blob/main/floors.gif)
 
 ### Workspace Management
+There are several features you can use to manage your current workspace.
 
 #### Reset View
+Restore the grid to its original position.
 
 #### Export Image
+Save an image of the current workspace grid to a file, as well as all furniture and walls placed. Note that in the current version, this function will save the current workspace and current floor only.
 
 #### Delete Workspace
+Delete the current workspace including grid, floors, placed furniture, and placed walls related to the current workspace.
