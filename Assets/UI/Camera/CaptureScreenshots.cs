@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEditor;
 
 public class CaptureScreenshots : MonoBehaviour
 {
@@ -22,31 +23,48 @@ public class CaptureScreenshots : MonoBehaviour
 
     private IEnumerator CaptureScreenshotsCoroutine()
     {
+        // get the list of floors
         workspaceInfo floorScript = FindObjectOfType<workspaceInfo>();
         List<GameObject> floors = floorScript.floors;
         
+        // get the workspace name
         string workspaceName = floors[0].transform.parent.gameObject.name;
 
-        ResetGrid(true);
+        // open the file save dialog, save chosen file path and file name.
+        var path = EditorUtility.SaveFilePanel(
+            "Save workspace as PNG",
+            "",
+            workspaceName,
+            "png"
+        );
+        path = path.Remove(path.Length-4);
+
+        
 
         // Loop through each floor in the workspace and capture a screenshot of each one
-        foreach (GameObject floor in floors)
-        {
-            yield return new WaitForEndOfFrame();
-            floorScript.currentFloor.SetActive(false);
-            floor.SetActive(true);
+        if(path.Length != 0){
+            ResetGrid(true);
+            foreach (GameObject floor in floors)
+            {
+                yield return new WaitForEndOfFrame();
+                floorScript.currentFloor.SetActive(false);
+                floor.SetActive(true);
 
-            yield return new WaitForSeconds(DelayBetweenScreenshots); 
-            string fileName = $"{workspaceName}_{floor.name}.png";
-            ScreenCapture.CaptureScreenshot(fileName);
+                yield return new WaitForSeconds(DelayBetweenScreenshots);
 
-            yield return new WaitForSeconds(DelayBetweenScreenshots);
-            floor.SetActive(false);
+                // path to save is the given path + filename and the floors.
+                string fileName = $"{path}_{floor.name}.png";
+                ScreenCapture.CaptureScreenshot(fileName);
+
+                yield return new WaitForSeconds(DelayBetweenScreenshots);
+                floor.SetActive(false);
+            }
+
+            floorScript.currentFloor.SetActive(true);
+
+            ResetGrid(false);
         }
 
-        floorScript.currentFloor.SetActive(true);
-
-        ResetGrid(false);
     }
 
     // Sets the grid up to take a screenshot
