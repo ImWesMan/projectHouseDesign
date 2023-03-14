@@ -4599,6 +4599,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   names: []
   sizes: []
+  workspaceNames: []
+  workspaceHeights: 
+  workspaceWidths: 
+  floorCounts: 
+  workspaces: []
 --- !u!4 &268559825
 Transform:
   m_ObjectHideFlags: 0
@@ -38357,6 +38362,10 @@ PrefabInstance:
     - target: {fileID: 1658206061965504947, guid: 2f8f6982afb3d8c4e9fb7b7745187778, type: 3}
       propertyPath: m_Name
       value: FloorList
+      objectReference: {fileID: 0}
+    - target: {fileID: 1658206061965504947, guid: 2f8f6982afb3d8c4e9fb7b7745187778, type: 3}
+      propertyPath: m_TagString
+      value: floorList
       objectReference: {fileID: 0}
     - target: {fileID: 1658206062129066642, guid: 2f8f6982afb3d8c4e9fb7b7745187778, type: 3}
       propertyPath: m_SizeDelta.y

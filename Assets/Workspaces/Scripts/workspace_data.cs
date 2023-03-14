@@ -70,6 +70,7 @@ public class workspace_data : MonoBehaviour
        AddNewWorkspaceToButtonList(newbutton);
        GameObject theFloorList = Instantiate(floorList, ExampleUI.transform);
        theFloorList.name = "theFloorList" + name;
+       created.GetComponent<workspaceInfo>().workspacesFloorList = theFloorList;
        AddNewFloorListToFloorListList(theFloorList);
        currentFloorList = theFloorList;
        created.GetComponent<workspaceInfo>().addFloor();
@@ -124,6 +125,7 @@ public class workspace_data : MonoBehaviour
        GameObject theFloorList = Instantiate(floorList, ExampleUI.transform);
        theFloorList.name = "theFloorList" + name;
        AddNewFloorListToFloorListList(theFloorList);
+       created.GetComponent<workspaceInfo>().workspacesFloorList = theFloorList;
        currentFloorList = theFloorList;
        created.GetComponent<workspaceInfo>().addFloor();
        currentWorkspace = created;

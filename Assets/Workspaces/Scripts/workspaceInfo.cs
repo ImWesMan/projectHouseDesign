@@ -14,6 +14,7 @@ public class workspaceInfo : MonoBehaviour
     public GameObject floor;
     public List<GameObject> floorButtons;
     private GameObject WallManager;
+    public GameObject workspacesFloorList;
     
     void Awake() {
         WallManager = GameObject.FindWithTag("WallManager");
@@ -79,6 +80,60 @@ public class workspaceInfo : MonoBehaviour
         }
     }
 
+     public void addFloor(GameObject workspaceCur)
+    {
+        WallManager.GetComponent<WallManager>().turnOffCreating();
+        WallManager.GetComponent<WallManager>().turnOffDeleting();
+        
+        if(FloorCount >= 5)
+        {
+            return;
+        }
+         FloorCount++;
+        GameObject newFloorButton = Instantiate(floorButton, workspacesFloorList.transform.GetChild(0).transform);
+        newFloorButton.transform.SetSiblingIndex(0);
+        newFloorButton.GetComponent<Button>().onClick.AddListener(() => SwitchFloor(newFloorButton));
+        newFloorButton.transform.GetChild(1).GetComponent<Button>().onClick.AddListener(() => deleteFloor(newFloorButton));
+        newFloorButton.GetComponent<Image>().color = new Color(0.55f, 1.0f, 0.55f, 1.0f);
+        newFloorButton.transform.GetChild(0).GetComponent<TMP_Text>().text = "Floor " + FloorCount;
+        addToFloorButtonList(newFloorButton);
+        GameObject newFloor = Instantiate(floor, workspaceCur.transform);
+        newFloor.GetComponent<TileManager>().createOccupied(newFloor.transform.parent.gameObject.GetComponent<workspaceInfo>().width, newFloor.transform.parent.gameObject.GetComponent<workspaceInfo>().height);
+        addToFloorList(newFloor);
+        currentFloor = newFloor;
+        newFloor.name = "Floor " + FloorCount;
+        
+        
+        GameObject selected = GameObject.FindWithTag("SelectedFurniture");
+        if(selected != null) {
+            selected.GetComponent<FurnitureState>().destoryFurnitureUI();
+            selected.GetComponent<FurnitureState>().isSelected = false;
+            selected.tag = "Furniture";
+            selected.GetComponent<SpriteRenderer>().color = new Color(0,0,0,1);
+        }
+        
+        foreach (GameObject thefloor in floors)
+        {
+             if(thefloor != newFloor)
+             {
+                
+                thefloor.SetActive(false);
+               
+             }   
+        }
+        foreach (GameObject floorButton in floorButtons)
+        {
+             if(floorButton != newFloorButton)
+             {
+                
+               floorButton.GetComponent<Image>().color = Color.white;
+             }   
+        }
+    }
+
+
+ 
+    
     public void SwitchFloor(GameObject floor)
     {
         WallManager.GetComponent<WallManager>().turnOffCreating();
