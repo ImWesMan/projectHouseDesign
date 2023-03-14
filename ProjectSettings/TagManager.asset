@@ -25,6 +25,7 @@ TagManager:
   - WallManager
   - Label
   - Sizes
+  - workspaceButton
   layers:
   - Default
   - TransparentFX

@@ -149,7 +149,7 @@ GameObject:
   - component: {fileID: 6133606565683185671}
   m_Layer: 5
   m_Name: WorkspaceButton
-  m_TagString: Untagged
+  m_TagString: workspaceButton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

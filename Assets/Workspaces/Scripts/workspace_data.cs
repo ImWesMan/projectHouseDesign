@@ -25,6 +25,12 @@ public class workspace_data : MonoBehaviour
       
     void Awake() {
         WallManager = GameObject.FindWithTag("WallManager");
+        if(workspaceCount > 0)
+        {
+            WorkspaceCreateUI.SetActive(false);
+            ExampleUI.SetActive(true);
+            GameObject.Find("CameraController").GetComponent<CameraController>().getPos();
+        }
     }
 
     public void Deselect() {
@@ -52,6 +58,59 @@ public class workspace_data : MonoBehaviour
        currentWorkspace = created;
        created.GetComponent<workspaceInfo>().width =  GameObject.FindWithTag("GridManager").GetComponent<GridCreation>().width;
        created.GetComponent<workspaceInfo>().height= GameObject.FindWithTag("GridManager").GetComponent<GridCreation>().height;
+
+       GameObject newbutton = Instantiate(workspaceButton);
+       newbutton.transform.SetParent(buttonHolder.transform);
+       newbutton.transform.GetChild(0).GetComponent<TMP_Text>().text = created.name;
+       newbutton.transform.GetChild(1).GetComponent<TMP_Text>().text = created.GetComponent<workspaceInfo>().width + " x " +  created.GetComponent<workspaceInfo>().height;
+       newbutton.transform.localScale = new Vector3(1.0f,1.0f,1.0f);
+       newbutton.transform.localPosition = new Vector3(newbutton.transform.localPosition.x,newbutton.transform.localPosition.y,0.0f);
+       newbutton.GetComponent<Image>().color = new Color(0.55f, 1.0f, 0.55f, 1.0f);
+       newbutton.GetComponent<Button>().onClick.AddListener(() => SwitchWorkspace(newbutton));
+       AddNewWorkspaceToButtonList(newbutton);
+       GameObject theFloorList = Instantiate(floorList, ExampleUI.transform);
+       theFloorList.name = "theFloorList" + name;
+       AddNewFloorListToFloorListList(theFloorList);
+       currentFloorList = theFloorList;
+       created.GetComponent<workspaceInfo>().addFloor();
+       currentWorkspace = created;
+       workspaceCount++;
+        
+        foreach (GameObject theworkspace in workspaces)
+        {
+             if(theworkspace != created)
+             {
+                theworkspace.SetActive(false);
+             }   
+        }
+        foreach (GameObject button in buttons)
+        {
+             if(button != newbutton)
+             {
+                button.GetComponent<Image>().color = Color.white;
+             }   
+        }
+          foreach (GameObject floorList in floorListList)
+        {
+             if(floorList != theFloorList)
+             {
+                floorList.SetActive(false);
+             }   
+        }
+    }
+
+     public void workspaceCreated(string name, int width, int height)
+    {
+      // WallManager.GetComponent<WallManager>().turnOffCreating();
+      // WallManager.GetComponent<WallManager>().turnOffDeleting();
+       
+       GameObject created = Instantiate(workspace, GameObject.FindWithTag("WorkspaceManager").transform);
+       created.name = name;
+       GameObject.FindWithTag("GridManager").GetComponent<GridCreation>().GenerateGrid(created, height, width);
+       AddNewWorkspaceToList(created);
+       currentWorkspace = created;
+       created.GetComponent<workspaceInfo>().width = width;
+       created.GetComponent<workspaceInfo>().height= height;
 
        GameObject newbutton = Instantiate(workspaceButton);
        newbutton.transform.SetParent(buttonHolder.transform);

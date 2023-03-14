@@ -47,6 +47,38 @@ public class GridCreation : MonoBehaviour
         //gameObject.GetComponent<TileManager>().occupied = new int[(int) width,(int) height];
    }
 
+   public void GenerateGrid(GameObject parent, int Height, int Width)
+   {
+        height = Height;
+        width = Width;
+        
+        for(int x = 0; x < width; x++) { 
+            for(int y = 0; y<height; y++) { 
+                
+                var spawnedTile = Instantiate(tilePrefab, new Vector3(x,y), Quaternion.identity);
+                spawnedTile.transform.SetParent(parent.transform);
+                spawnedTile.name = $"Tile ({x},{y})";
+
+                var isOffset = (x + y) % 2 == 1;
+                spawnedTile.init(isOffset);
+        }
+    }
+    
+        float maximum = Mathf.Max(width, height);
+    
+        camera.orthographicSize = maximum/1.5f + maximum/100;
+    
+        float cameraHeight = 2.0f * camera.orthographicSize;
+        float cameraWidth = cameraHeight * camera.aspect;
+        cam.transform.position = new Vector3(width/2.0f + cameraWidth/8.0f , height/1.85f - 0.5f, -10);
+        camera.backgroundColor = new Color(0.75f, 0.75f, 0.75f, 1.0f);
+
+        startPos = camera.transform.position;
+        startZoom = camera.orthographicSize;
+     
+        //gameObject.GetComponent<TileManager>().occupied = new int[(int) width,(int) height];
+   }
+
    public void resetGrid() {
          float maximum = Mathf.Max(width, height);
     
