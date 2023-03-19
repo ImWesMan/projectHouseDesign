@@ -5,6 +5,8 @@ This project is a minimal design tool for house layouts. It is intended to be us
 ### Creating a workspace
 To start, enter a name for your workspace, select the Width and Length, and select Create.
 
+When a workspace is created, there is a grid in the middle. This is the blueprint of your property space. It can be moved and resized as needed.
+
 ![](https://github.com/ImWesMan/projectHouseDesign/blob/main/create.gif)
 
 This will create your workspace in which you may add furniture, walls, or more floors!
@@ -40,7 +42,7 @@ There are several features you can use to manage your current workspace.
 Restore the grid to its original position.
 
 #### Export Image
-Save an image of the current workspace grid to a file, as well as all furniture and walls placed. Note that in the current version, this function will save the current workspace and current floor only.
+Save an image of the current workspace grid to a file, as well as all furniture and walls placed.
 
 #### Delete Workspace
 Delete the current workspace including grid, floors, placed furniture, and placed walls related to the current workspace.
