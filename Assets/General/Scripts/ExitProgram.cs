@@ -4,18 +4,21 @@ using UnityEngine;
 
 public class ExitProgram : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public GameObject exitConfirmation;
+    public GameObject exampleUI;
+    public GameObject WorkspaceManager;
+    public void showConfirmation()
     {
-        
+        exampleUI.SetActive(false);
+        exitConfirmation.SetActive(true);
+        WorkspaceManager.SetActive(false);
     }
-
-    // Update is called once per frame
-    void Update()
+    public void hideConfirmation()
     {
-        
+        exampleUI.SetActive(true);
+        exitConfirmation.SetActive(false);
+        WorkspaceManager.SetActive(true);
     }
-
     public void exitProgram()
     {
         Application.Quit();

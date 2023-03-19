@@ -31,18 +31,18 @@ public class CaptureScreenshots : MonoBehaviour
         string workspaceName = floors[0].transform.parent.gameObject.name;
 
         // open the file save dialog, save chosen file path and file name.
-        var path = EditorUtility.SaveFilePanel(
+        /* var path = EditorUtility.SaveFilePanel(
             "Save workspace as PNG",
             "",
             workspaceName,
             "png"
         );
-        path = path.Remove(path.Length-4);
+        path = path.Remove(path.Length-4); */
 
         
 
         // Loop through each floor in the workspace and capture a screenshot of each one
-        if(path.Length != 0){
+        if(true){
             ResetGrid(true);
             foreach (GameObject floor in floors)
             {
@@ -53,7 +53,7 @@ public class CaptureScreenshots : MonoBehaviour
                 yield return new WaitForSeconds(DelayBetweenScreenshots);
 
                 // path to save is the given path + filename and the floors.
-                string fileName = $"{path}_{floor.name}.png";
+                string fileName = $"{workspaceName}_{floor.name}.png";
                 ScreenCapture.CaptureScreenshot(fileName);
 
                 yield return new WaitForSeconds(DelayBetweenScreenshots);
